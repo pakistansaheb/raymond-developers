@@ -1,0 +1,16 @@
+/node_modules
+/.next
+/out
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment — never commit. Secrets live in Vercel, not the repo.
+.env
+.env.*
+!.env.example
+
+.DS_Store
+*.pem
+npm-debug.log*
+.vercel

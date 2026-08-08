@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Raymond Developers — design tokens.
+
+   Five values, no hue. The only chromatic event on the site is inversion:
+   one full-bleed band flips to `signal` ground with `void` type.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-void: #050505;
+  --color-chalk: #edede8;
+  --color-graphite: #8c8c86;
+  --color-hairline: #1f1f1d;
+  --color-signal: #ffffff;
+
+  --font-display: var(--font-archivo), "Arial Narrow", system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --spacing-measure: 75rem; /* 1200px content measure */
+}
+
+:root {
+  color-scheme: dark;
+  --rule: 1px solid var(--color-hairline);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-chalk);
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-void);
+}
+
+/* --- Focus -----------------------------------------------------------------
+   One visible treatment everywhere. Never removed, never made subtle.
+--------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+/* --- Type roles ----------------------------------------------------------- */
+
+/* Display: Archivo at the same width and weight as the wordmark. The logo and
+   the headlines are one object at different sizes. */
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: -0.015em;
+  color: var(--color-chalk);
+  text-wrap: balance;
+}
+
+.t-d1 {
+  font-size: clamp(2.75rem, 11.5vw, 8.5rem);
+}
+.t-d2 {
+  font-size: clamp(2.25rem, 7.5vw, 5rem);
+}
+.t-d3 {
+  font-size: clamp(1.5rem, 3.4vw, 2.25rem);
+}
+
+/* Interface: the same family, normal width, normal weight. */
+.t-ui {
+  font-family: var(--font-display);
+  font-stretch: 100%;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Utility: registry codes, labels, stat captions, account metadata. */
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.t-lead {
+  font-family: var(--font-serif);
+  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--color-chalk);
+}
+
+/* --- Full-bleed rules ------------------------------------------------------
+   Rules run past the measure to both viewport edges, so the page reads as a
+   ledger with a wide margin rather than a stack of boxes.
+--------------------------------------------------------------------------- */
+.bleed-rule {
+  position: relative;
+}
+.bleed-rule::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-top: var(--rule);
+}
+
+/* --- Scroll reveal ---------------------------------------------------------
+   One orchestrated group per section: the section marker, then the content,
+   on a short stagger. Not every element animating on its own.
+--------------------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--reveal-index, 0) * 70ms);
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* The live indicator on the status pill. */
+@keyframes pulse-square {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.15;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.live-square {
+  animation: pulse-square 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+  }
+  .live-square {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* --- Row hover -------------------------------------------------------------
+   Index rows are hairline-separated, not cards. The only hover state is the
+   text going pure white and the marker sliding a few pixels.
+--------------------------------------------------------------------------- */
+.row-link .row-title {
+  transition: color 0.25s ease;
+}
+.row-link:hover .row-title,
+.row-link:focus-visible .row-title {
+  color: var(--color-signal);
+}
+.row-link .row-arrow {
+  transition: transform 0.25s ease;
+}
+.row-link:hover .row-arrow,
+.row-link:focus-visible .row-arrow {
+  transform: translateX(4px);
+}
+
+/* --- Accordion (native details/summary) ----------------------------------- */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary .fq-sign {
+  transition: transform 0.25s ease;
+}
+details[open] > summary .fq-sign {
+  transform: rotate(45deg);
+}
