@@ -38,13 +38,13 @@ export function Hero() {
             <div className="flex shrink-0 gap-3">
               <Link
                 href="#05"
-                className="t-mono border border-signal bg-signal px-5 py-3 text-void transition-opacity hover:opacity-85"
+                className="t-mono border border-signal bg-signal px-5 py-3.5 text-void transition-opacity hover:opacity-85"
               >
                 Start a project
               </Link>
               <a
                 href="mailto:abdulrahmanammad7@gmail.com"
-                className="t-mono border border-hairline px-5 py-3 text-chalk transition-colors hover:border-signal hover:text-signal"
+                className="t-mono border border-hairline px-5 py-3.5 text-chalk transition-colors hover:border-signal hover:text-signal"
               >
                 Get in touch
               </a>

@@ -14,16 +14,22 @@ export function SiteFooter() {
             &copy; {year} Raymond Developers. UK web design and software studio.
           </p>
         </div>
-        <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Legal">
-          <Link href="/privacy" className="t-mono text-graphite transition-colors hover:text-signal">
+        <nav className="flex flex-wrap gap-x-6 gap-y-1" aria-label="Legal">
+          <Link
+            href="/privacy"
+            className="t-mono inline-block py-3 text-graphite transition-colors hover:text-signal"
+          >
             Privacy
           </Link>
-          <Link href="/terms" className="t-mono text-graphite transition-colors hover:text-signal">
+          <Link
+            href="/terms"
+            className="t-mono inline-block py-3 text-graphite transition-colors hover:text-signal"
+          >
             Terms
           </Link>
           <a
             href="mailto:abdulrahmanammad7@gmail.com"
-            className="t-mono text-graphite transition-colors hover:text-signal"
+            className="t-mono inline-block py-3 text-graphite transition-colors hover:text-signal"
           >
             abdulrahmanammad7@gmail.com
           </a>

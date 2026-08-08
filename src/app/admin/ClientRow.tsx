@@ -61,14 +61,14 @@ export function ClientRow({
           <div className="flex flex-wrap gap-3">
             <button
               type="submit"
-              className="t-mono border border-signal bg-signal px-4 py-2 text-void transition-opacity hover:opacity-85"
+              className="t-mono border border-signal bg-signal px-4 py-3 text-void transition-opacity hover:opacity-85"
             >
               Save changes
             </button>
             <button
               type="button"
               onClick={() => setEditing(false)}
-              className="t-mono border border-hairline px-4 py-2 text-chalk transition-colors hover:border-signal hover:text-signal"
+              className="t-mono border border-hairline px-4 py-3 text-chalk transition-colors hover:border-signal hover:text-signal"
             >
               Cancel
             </button>
@@ -113,7 +113,7 @@ export function ClientRow({
             <input type="hidden" name="id" value={client.id} />
             <button
               type="submit"
-              className="t-mono border border-hairline px-4 py-2 text-chalk transition-colors hover:border-signal hover:text-signal"
+              className="t-mono border border-hairline px-4 py-3 text-chalk transition-colors hover:border-signal hover:text-signal"
             >
               Mark unpaid
             </button>
@@ -124,7 +124,7 @@ export function ClientRow({
             <input type="hidden" name="period" value={client.currentPeriod ?? ""} />
             <button
               type="submit"
-              className="t-mono border border-signal bg-signal px-4 py-2 text-void transition-opacity hover:opacity-85"
+              className="t-mono border border-signal bg-signal px-4 py-3 text-void transition-opacity hover:opacity-85"
             >
               Mark paid
             </button>
@@ -133,7 +133,7 @@ export function ClientRow({
         <button
           type="button"
           onClick={() => setEditing(true)}
-          className="t-mono border border-hairline px-4 py-2 text-chalk transition-colors hover:border-signal hover:text-signal"
+          className="t-mono border border-hairline px-4 py-3 text-chalk transition-colors hover:border-signal hover:text-signal"
         >
           Edit
         </button>
@@ -148,7 +148,7 @@ export function ClientRow({
           <input type="hidden" name="id" value={client.id} />
           <button
             type="submit"
-            className="t-mono border border-hairline px-4 py-2 text-graphite transition-colors hover:border-chalk hover:text-chalk"
+            className="t-mono border border-hairline px-4 py-3 text-graphite transition-colors hover:border-chalk hover:text-chalk"
           >
             Remove
           </button>

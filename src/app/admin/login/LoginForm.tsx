@@ -57,7 +57,7 @@ export function LoginForm() {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           disabled={submitting}
-          className="t-ui border border-hairline bg-transparent px-4 py-3 text-chalk outline-none focus-visible:border-signal"
+          className="t-ui border border-hairline bg-transparent px-4 py-3.5 text-chalk outline-none focus-visible:border-signal"
         />
       </div>
 
@@ -73,7 +73,7 @@ export function LoginForm() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           disabled={submitting}
-          className="t-ui border border-hairline bg-transparent px-4 py-3 text-chalk outline-none focus-visible:border-signal"
+          className="t-ui border border-hairline bg-transparent px-4 py-3.5 text-chalk outline-none focus-visible:border-signal"
         />
       </div>
 

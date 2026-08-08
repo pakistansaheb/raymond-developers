@@ -60,9 +60,9 @@ export function Faq() {
               <details
                 key={item.n}
                 data-reveal
-                className="group border-t border-hairline py-6 last:border-b"
+                className="group border-t border-hairline py-2 last:border-b"
               >
-                <summary className="flex items-center justify-between gap-6 outline-none">
+                <summary className="flex min-h-11 items-center justify-between gap-6 py-4 outline-none">
                   <span className="flex items-baseline gap-4 sm:gap-6">
                     <span className="t-mono shrink-0 text-graphite">{item.n}</span>
                     <span className="t-ui text-lg text-chalk md:text-xl">

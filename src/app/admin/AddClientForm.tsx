@@ -36,14 +36,14 @@ export function AddClientForm() {
       <div className="flex flex-wrap gap-3">
         <button
           type="submit"
-          className="t-mono border border-signal bg-signal px-4 py-2 text-void transition-opacity hover:opacity-85"
+          className="t-mono border border-signal bg-signal px-4 py-3 text-void transition-opacity hover:opacity-85"
         >
           Save client
         </button>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="t-mono border border-hairline px-4 py-2 text-chalk transition-colors hover:border-signal hover:text-signal"
+          className="t-mono border border-hairline px-4 py-3 text-chalk transition-colors hover:border-signal hover:text-signal"
         >
           Cancel
         </button>

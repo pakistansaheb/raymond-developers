@@ -59,8 +59,8 @@ export function Start() {
                   rel="noopener noreferrer"
                   className={
                     row.primary
-                      ? "t-mono self-start border border-signal bg-signal px-5 py-3 text-center text-void transition-opacity hover:opacity-85 sm:self-center"
-                      : "t-mono self-start border border-hairline px-5 py-3 text-center text-chalk transition-colors hover:border-signal hover:text-signal sm:self-center"
+                      ? "t-mono self-start border border-signal bg-signal px-5 py-3.5 text-center text-void transition-opacity hover:opacity-85 sm:self-center"
+                      : "t-mono self-start border border-hairline px-5 py-3.5 text-center text-chalk transition-colors hover:border-signal hover:text-signal sm:self-center"
                   }
                 >
                   {row.cta}
