@@ -42,20 +42,54 @@ export type ClientInput = Pick<
 
 let client: Redis | null = null;
 
+/**
+ * Credentials can arrive under two different names depending on how the
+ * database was connected:
+ *
+ * - `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` — set by hand, or
+ *   by the classic Upstash Vercel integration.
+ * - `<store-name>_KV_REST_API_URL` / `<store-name>_KV_REST_API_TOKEN` — set
+ *   automatically when a database is created from the Vercel Storage tab
+ *   (Vercel's KV-compatible naming, prefixed with whatever the store is
+ *   called). The prefix isn't predictable, so this scans for it.
+ */
+function resolveCredentials(): { url: string; token: string } | null {
+  if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+    return {
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    };
+  }
+
+  const urlKey = Object.keys(process.env).find((key) =>
+    key.endsWith("_KV_REST_API_URL"),
+  );
+  if (!urlKey) return null;
+
+  const prefix = urlKey.slice(0, -"KV_REST_API_URL".length);
+  const url = process.env[urlKey];
+  const token = process.env[`${prefix}KV_REST_API_TOKEN`];
+  if (!url || !token) return null;
+
+  return { url, token };
+}
+
 function redis(): Redis {
   if (!client) {
-    client = new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL!,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-    });
+    const credentials = resolveCredentials();
+    if (!credentials) {
+      throw new Error(
+        "No Upstash Redis credentials found. Set UPSTASH_REDIS_REST_URL and " +
+          "UPSTASH_REDIS_REST_TOKEN, or connect a database from the Vercel Storage tab.",
+      );
+    }
+    client = new Redis(credentials);
   }
   return client;
 }
 
 export function redisConfigured(): boolean {
-  return Boolean(
-    process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN,
-  );
+  return resolveCredentials() !== null;
 }
 
 export async function listClients(): Promise<Client[]> {

@@ -50,15 +50,21 @@ hash is ever stored — the password itself lives nowhere in this repo.
 The client list needs somewhere to live. Vercel can't write files at runtime,
 so it goes in Upstash — a free key-value store.
 
-1. Sign up at [console.upstash.com](https://console.upstash.com) and create a
-   Redis database (free tier is plenty), **or** add the Upstash integration
-   from the Vercel marketplace, which wires it up automatically.
-2. Copy the **REST URL** and **REST token** (not the `redis://` connection
-   string).
-3. Put them in `.env.local` as `UPSTASH_REDIS_REST_URL` and
-   `UPSTASH_REDIS_REST_TOKEN`.
+**Recommended — from Vercel:** Project → Storage → Create Database → Upstash →
+Redis. Vercel injects the credentials into the project automatically, under
+names like `<store-name>_KV_REST_API_URL` / `<store-name>_KV_REST_API_TOKEN` —
+the app looks for those as well as the plain names below, so nothing else to
+configure. Redeploy (or push a commit) after creating it so the new env vars
+take effect.
 
-Until this is set, `/admin` loads but shows "Storage isn't connected."
+**Manual alternative:** sign up at
+[console.upstash.com](https://console.upstash.com), create a Redis database,
+copy the **REST URL** and **REST token** (not the `redis://` connection
+string), and put them in `.env.local` as `UPSTASH_REDIS_REST_URL` and
+`UPSTASH_REDIS_REST_TOKEN`.
+
+Until storage is connected, `/admin` loads but shows "Storage isn't
+connected."
 
 ### 4. Connect email
 
