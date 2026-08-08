@@ -41,6 +41,23 @@ body {
   overflow-x: hidden;
 }
 
+/* --- Touch handling ---------------------------------------------------------
+   Mobile Safari treats a quick pair of taps close together in time as a
+   double-tap-to-zoom gesture — easy to trigger by accident while tapping
+   through buttons, links or the FAQ accordion, and it reads as the page
+   randomly zooming. This tells the browser interactive elements only need a
+   single tap, removing that gesture (and the ~300ms tap delay) on exactly
+   the elements a user taps, without touching pinch-zoom anywhere else on the
+   page — zoom stays available everywhere, which accessibility requires.
+--------------------------------------------------------------------------- */
+a,
+button,
+summary,
+input,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 ::selection {
   background: var(--color-signal);
   color: var(--color-void);
