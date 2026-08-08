@@ -114,12 +114,15 @@ body {
   position: relative;
 }
 .bleed-rule::before {
+  /* Deliberately not 100vw: on mobile Safari, 100vw can measure wider than
+     the true visible viewport, pushing this rule past the edge and exposing
+     a gap. These sections are already unconstrained full-width elements (no
+     narrower parent), so left/right: 0 reaches the same true edges safely. */
   content: "";
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   border-top: var(--rule);
 }
 
