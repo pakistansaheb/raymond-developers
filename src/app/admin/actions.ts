@@ -11,6 +11,7 @@ import {
   deleteClient as removeClient,
   updateClient,
 } from "@/lib/clients";
+import { sendInvoiceNow } from "@/lib/send-invoice";
 import { SESSION_COOKIE } from "@/lib/session";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,9 +36,35 @@ function readClientForm(formData: FormData) {
   return { name, email, websiteUrl, amount, hostingStartDate, active };
 }
 
+/**
+ * Adding a client asks whether this period is already paid. If not, the
+ * first invoice goes out immediately (rather than waiting for their monthly
+ * billing day), so the 2-day reminder / 15-day suspension clock starts from
+ * today. If they've already paid — e.g. backfilling an existing client mid
+ * period — nothing is emailed, and the normal monthly cycle picks them up
+ * from their next billing day.
+ */
 export async function addClient(formData: FormData) {
   await requireAdmin();
-  await createClient(readClientForm(formData));
+  const client = await createClient(readClientForm(formData));
+  const alreadyPaid = formData.get("hasPaid") === "paid";
+
+  if (alreadyPaid) {
+    await updateClient(client.id, {
+      paid: true,
+      paidAt: new Date().toISOString(),
+    });
+  } else {
+    try {
+      const patch = await sendInvoiceNow(client);
+      await updateClient(client.id, patch);
+    } catch (error) {
+      console.error(`Failed to send opening invoice to ${client.email}:`, error);
+      // The client record still exists; the daily cron retries on their
+      // next billing day rather than losing the client entirely.
+    }
+  }
+
   revalidatePath("/admin");
 }
 

@@ -213,6 +213,39 @@ export function ClientFields({ client }: { client?: Client }) {
         />
         <span className="t-mono text-graphite">Active (invoice monthly)</span>
       </label>
+
+      {!client ? (
+        <fieldset className="flex flex-col gap-2 sm:col-span-2">
+          <legend className="t-mono text-graphite">
+            Has this client already paid for this period?
+          </legend>
+          <div className="flex flex-wrap gap-4">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="hasPaid"
+                value="unpaid"
+                defaultChecked
+                className="h-4 w-4 accent-white"
+              />
+              <span className="t-mono text-graphite">
+                No — send the invoice now
+              </span>
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="hasPaid"
+                value="paid"
+                className="h-4 w-4 accent-white"
+              />
+              <span className="t-mono text-graphite">
+                Yes — already paid, don&rsquo;t email
+              </span>
+            </label>
+          </div>
+        </fieldset>
+      ) : null}
     </div>
   );
 }
