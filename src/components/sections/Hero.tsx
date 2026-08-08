@@ -31,9 +31,9 @@ export function Hero() {
 
           <div data-reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <p className="t-lead max-w-xl">
-              Raymond Developers is a UK studio that designs and builds
-              websites and bespoke software, then hosts what it builds so it
-              stays live.
+              Raymond Developers is a Birmingham studio that designs and
+              builds websites and bespoke software for clients across the
+              UK, then hosts what it builds so it stays live.
             </p>
             <div className="flex shrink-0 gap-3">
               <Link

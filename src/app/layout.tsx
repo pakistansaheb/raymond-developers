@@ -6,9 +6,9 @@ import { publicEnv } from "@/lib/env";
 
 import "./globals.css";
 
-const title = "Raymond Developers — UK web design and software studio";
+const title = "Raymond Developers — Web Design & Software Studio in Birmingham";
 const description =
-  "Raymond Developers designs and builds websites and bespoke software: custom web applications, internal tools, dashboards, booking and workflow systems. Hosting from £20 a month.";
+  "Raymond Developers is a Birmingham-based studio designing and building websites and bespoke software for clients across the UK: custom web applications, internal tools, dashboards, booking and workflow systems.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(publicEnv.siteUrl),
@@ -19,8 +19,10 @@ export const metadata: Metadata = {
   description,
   applicationName: "Raymond Developers",
   keywords: [
-    "web design UK",
-    "bespoke software",
+    "web design Birmingham",
+    "web developer Birmingham",
+    "software development Birmingham",
+    "bespoke software UK",
     "web application development",
     "internal tools",
     "website hosting",
@@ -60,12 +62,38 @@ export default async function RootLayout({
   // inline scripts it manages so they satisfy the CSP in src/middleware.ts.
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
+  // Tells search engines what "Raymond Developers" refers to as an entity —
+  // this is what improves the odds of the site itself (not just any page
+  // mentioning the name) being the answer when someone searches the brand.
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Raymond Developers",
+    url: publicEnv.siteUrl,
+    email: "abdulrahmanammad7@gmail.com",
+    description,
+    areaServed: ["Birmingham", "West Midlands", "United Kingdom"],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Birmingham",
+      addressCountry: "GB",
+    },
+  };
+
   return (
     <html
       lang="en-GB"
       className={`${archivo.variable} ${newsreader.variable} ${plexMono.variable}`}
     >
-      <body data-csp-nonce={nonce}>{children}</body>
+      <body data-csp-nonce={nonce}>
+        <script
+          type="application/ld+json"
+          nonce={nonce}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
