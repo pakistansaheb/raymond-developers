@@ -59,18 +59,50 @@ export function buildInvoiceEmail(client: Client, dueDate: Date) {
   };
 }
 
+/**
+ * Tone escalates as the due date approaches — three tiers, not just the
+ * "days remaining" figure changing. `daysLeft` lands on 13, 11, 9, 7, 5, 3, 1
+ * across the 15-day window (reminders every 2 days), so these thresholds
+ * split that sequence into three even stages: early, mid, urgent.
+ */
+function reminderTier(daysLeft: number): "early" | "mid" | "urgent" {
+  if (daysLeft <= 3) return "urgent";
+  if (daysLeft <= 7) return "mid";
+  return "early";
+}
+
 export function buildReminderEmail(
   client: Client,
   dueDate: Date,
   daysLeft: number,
 ) {
   const amount = client.amount.toFixed(2);
+  const tier = reminderTier(daysLeft);
+
+  const subject = {
+    early: `Reminder — £${amount} outstanding${subjectSuffix(client)}`,
+    mid: `Overdue — £${amount} outstanding${subjectSuffix(client)}`,
+    urgent: `Final reminder — hosting suspends in ${daysLeft} day${daysLeft === 1 ? "" : "s"}${subjectSuffix(client)}`,
+  }[tier];
+
+  const opening = {
+    early: `We haven't received your hosting payment of £${amount} yet.`,
+    mid: `Your hosting payment of £${amount} is now overdue.`,
+    urgent: `This is your final reminder: hosting will be suspended in ${daysLeft} day${daysLeft === 1 ? "" : "s"} if payment doesn't arrive.`,
+  }[tier];
+
+  const closingWarning = {
+    early: `If payment hasn't arrived by ${dateFormatter.format(dueDate)}, hosting will be suspended and the site will go offline.`,
+    mid: `Payment is due by ${dateFormatter.format(dueDate)}. After that, hosting is suspended and the site goes offline.`,
+    urgent: `After ${dateFormatter.format(dueDate)}, the site goes offline. Pay now to avoid any interruption.`,
+  }[tier];
+
   return {
-    subject: `Reminder — £${amount} outstanding${subjectSuffix(client)}`,
+    subject,
     text: [
       `Hi ${client.name},`,
       "",
-      `We haven't received your hosting payment of £${amount} yet.`,
+      opening,
       "",
       `Amount due: £${amount}`,
       `Due date: ${dateFormatter.format(dueDate)}`,
@@ -78,7 +110,7 @@ export function buildReminderEmail(
       "",
       ...bankBlock(client),
       "",
-      `If payment hasn't arrived by ${dateFormatter.format(dueDate)}, hosting will be suspended and the site will go offline.`,
+      closingWarning,
       "",
       "If you've already paid, ignore this — and let us know so we can check it off.",
       ...signOff(),
