@@ -7,7 +7,7 @@ const PROJECTS = [
     name: "Raymond Logistics",
     summary:
       "A logistics and haulage company site: service pages, a quote request flow, and the copy and structure needed to convert an enquiry into a booked job.",
-    built: "Design, build and ongoing hosting.",
+    built: "Design and build. Hosted since launch.",
     href: "https://raymondlogistics.co.uk",
   },
   {
@@ -15,7 +15,7 @@ const PROJECTS = [
     name: "HP Cutz",
     summary:
       "A Birmingham barbershop's site: services, pricing and a straightforward booking flow that turns a browse into a booked appointment.",
-    built: "Design, build and ongoing hosting.",
+    built: "Design and build. Hosted since launch.",
     href: "https://hpcutz.com",
   },
   {
@@ -23,7 +23,7 @@ const PROJECTS = [
     name: "CM Courier Group",
     summary:
       "A courier and haulage marketing site: service pages, an instant quote tool, and the copy and structure needed to convert an enquiry into a booked job.",
-    built: "Design, build and ongoing hosting.",
+    built: "Design and build. Hosted since launch.",
     href: "https://cm-courier-group.vercel.app",
   },
 ] as const;

@@ -2,11 +2,13 @@ import Link from "next/link";
 
 import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
+import { HeroGlow } from "@/components/sections/HeroGlow";
 
 export function Hero() {
   return (
     <section id="01" className="relative px-6 pb-24 pt-16 md:px-10 md:pb-32 md:pt-20 xl:pl-28">
-      <div className="mx-auto max-w-measure">
+      <HeroGlow />
+      <div className="relative z-10 mx-auto max-w-measure">
         <Reveal className="flex flex-col gap-10">
           <div data-reveal className="flex flex-wrap items-center justify-between gap-4">
             <Eyebrow label="STUDIO" code="01" descriptor="INTRO" />
@@ -24,16 +26,17 @@ export function Hero() {
             <br />
             We build.
             <br />
-            Then we keep
+            We make it
             <br />
-            it running.
+            real.
           </h1>
 
           <div data-reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <p className="t-lead max-w-xl">
               Raymond Developers is a Birmingham studio that designs and
               builds websites and bespoke software for clients across the
-              UK, then hosts what it builds so it stays live.
+              UK — from marketing sites to internal tools, dashboards and
+              booking systems.
             </p>
             <div className="flex shrink-0 gap-3">
               <Link
