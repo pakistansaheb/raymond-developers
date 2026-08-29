@@ -5,7 +5,14 @@ import { useState } from "react";
 import type { Client } from "@/lib/clients";
 import type { PaymentState } from "@/lib/billing";
 
-import { deleteClient, editClient, markPaid, markUnpaid } from "./actions";
+import {
+  deleteClient,
+  editClient,
+  markPaid,
+  markUnpaid,
+  testRestoreHosting,
+  testSuspendHosting,
+} from "./actions";
 
 const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
@@ -105,6 +112,13 @@ export function ClientRow({
           £{client.amount.toFixed(2)}/mo · started{" "}
           {dateFormatter.format(new Date(`${client.hostingStartDate}T00:00:00Z`))}
         </p>
+        {client.suspensionError ? (
+          <p className="t-mono border border-chalk px-2 py-1 text-chalk">
+            Automated hosting {client.suspended ? "takedown" : "restore"} failed —
+            take it {client.suspended ? "down" : "back online"} manually. (
+            {client.suspensionError})
+          </p>
+        ) : null}
       </div>
 
       <div className="flex flex-wrap gap-2 lg:justify-end">
@@ -137,6 +151,27 @@ export function ClientRow({
         >
           Edit
         </button>
+        {client.vercelProjectId ? (
+          <form
+            action={client.suspended ? testRestoreHosting : testSuspendHosting}
+            onSubmit={(event) => {
+              const message = client.suspended
+                ? `Bring ${client.name}'s live site back online right now, via the Vercel API?`
+                : `Take ${client.name}'s live site offline right now, via the Vercel API? This is immediate and real.`;
+              if (!confirm(message)) {
+                event.preventDefault();
+              }
+            }}
+          >
+            <input type="hidden" name="id" value={client.id} />
+            <button
+              type="submit"
+              className="t-mono border border-hairline px-4 py-3 text-graphite transition-colors hover:border-chalk hover:text-chalk"
+            >
+              Test: {client.suspended ? "bring back online" : "take offline"}
+            </button>
+          </form>
+        ) : null}
         <form
           action={deleteClient}
           onSubmit={(event) => {
@@ -160,6 +195,9 @@ export function ClientRow({
 
 export function ClientFields({ client }: { client?: Client }) {
   const scope = client?.id ?? "new";
+  const [automationEnabled, setAutomationEnabled] = useState(
+    Boolean(client?.vercelProjectId),
+  );
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -213,6 +251,35 @@ export function ClientFields({ client }: { client?: Client }) {
         />
         <span className="t-mono text-graphite">Active (invoice monthly)</span>
       </label>
+
+      <div className="flex flex-col gap-2 sm:col-span-2">
+        <label className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            checked={automationEnabled}
+            onChange={(event) => setAutomationEnabled(event.target.checked)}
+            className="h-4 w-4 accent-white"
+          />
+          <span className="t-mono text-graphite">
+            Automated hosting suspension
+          </span>
+        </label>
+        {automationEnabled ? (
+          <Field
+            scope={scope}
+            label="Vercel project ID"
+            name="vercelProjectId"
+            placeholder="prj_xxxxxxxx"
+            defaultValue={client?.vercelProjectId}
+            required
+          />
+        ) : (
+          <p className="t-mono text-graphite">
+            Off — at 15 days overdue this client only gets the final-notice
+            email; you take the site down by hand.
+          </p>
+        )}
+      </div>
 
       {!client ? (
         <fieldset className="flex flex-col gap-2 sm:col-span-2">

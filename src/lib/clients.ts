@@ -33,11 +33,31 @@ export type Client = {
   paidAt: string | null;
   /** Set once the day-15 final notice has gone out. Stops further email. */
   suspended: boolean;
+
+  /**
+   * Vercel project id (e.g. `prj_xxxxxxxx`) hosting this client's site.
+   * When set (alongside a parseable `websiteUrl`), the day-15 suspension and
+   * "mark paid" actions automatically unassign/reassign the domain via the
+   * Vercel API instead of requiring a manual takedown. Empty = automation
+   * disabled for this client; falls back to the old manual-only behaviour.
+   */
+  vercelProjectId: string;
+  /** Set when the automated takedown succeeds. Cleared on reinstatement. */
+  hostingSuspendedAt: string | null;
+  /** Set when an automated takedown/reinstatement call fails, so the admin
+   * knows to intervene manually. Cleared on the next successful attempt. */
+  suspensionError: string | null;
 };
 
 export type ClientInput = Pick<
   Client,
-  "name" | "email" | "websiteUrl" | "amount" | "hostingStartDate" | "active"
+  | "name"
+  | "email"
+  | "websiteUrl"
+  | "amount"
+  | "hostingStartDate"
+  | "active"
+  | "vercelProjectId"
 >;
 
 let client: Redis | null = null;
@@ -115,6 +135,8 @@ export async function createClient(input: ClientInput): Promise<Client> {
     paid: false,
     paidAt: null,
     suspended: false,
+    hostingSuspendedAt: null,
+    suspensionError: null,
   };
   await writeClients([...clients, record]);
   return record;

@@ -125,7 +125,7 @@ export function buildFinalNoticeEmail(client: Client) {
     text: [
       `Hi ${client.name},`,
       "",
-      `Your hosting payment of £${amount} is now ${PAYMENT_WINDOW_DAYS} days overdue, so hosting${client.websiteUrl ? ` for ${client.websiteUrl}` : ""} is being suspended and the site will go offline.`,
+      `Your hosting payment of £${amount} is now ${PAYMENT_WINDOW_DAYS} days overdue, so hosting${client.websiteUrl ? ` for ${client.websiteUrl}` : ""} has been suspended and the site is now offline.`,
       "",
       `Outstanding: £${amount}`,
       "",

@@ -15,13 +15,14 @@ import {
 } from "@/lib/billing";
 import { listClients, redisConfigured, saveClients } from "@/lib/clients";
 import type { Client } from "@/lib/clients";
-import { invoicingConfigured, serverEnv } from "@/lib/env";
+import { hostingAutomationConfigured, invoicingConfigured, serverEnv } from "@/lib/env";
 import {
   buildFinalNoticeEmail,
   buildInvoiceEmail,
   buildReminderEmail,
 } from "@/lib/invoice";
 import { mailer } from "@/lib/mailer";
+import { suspendDomain } from "@/lib/vercel";
 
 export const dynamic = "force-dynamic";
 
@@ -86,7 +87,7 @@ export async function GET(request: NextRequest) {
         const ok = await send(client, action, now);
         performed.push({ email: client.email, action, ok });
 
-        if (ok) applyAction(next, action, now);
+        if (ok) await applyAction(next, action, now);
       }
     }
 
@@ -166,7 +167,7 @@ async function send(client: Client, action: Action, now: Date): Promise<boolean>
   }
 }
 
-function applyAction(client: Client, action: Action, now: Date): void {
+async function applyAction(client: Client, action: Action, now: Date): Promise<void> {
   const timestamp = now.toISOString();
 
   if (action === "invoice") {
@@ -186,5 +187,17 @@ function applyAction(client: Client, action: Action, now: Date): void {
     return;
   }
 
+  // final_notice
   client.suspended = true;
+
+  if (hostingAutomationConfigured()) {
+    try {
+      await suspendDomain(client);
+      client.hostingSuspendedAt = timestamp;
+      client.suspensionError = null;
+    } catch (error) {
+      console.error(`Failed to take ${client.email}'s site offline via Vercel:`, error);
+      client.suspensionError = error instanceof Error ? error.message : String(error);
+    }
+  }
 }

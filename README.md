@@ -9,13 +9,15 @@ by direct bank transfer — there is no payment processor.
 ## How it works, in one paragraph
 
 You add each hosting client in `/admin` (name, email, website, £/month, the
-date they started hosting). A job runs once a day on Vercel. On each client's
-monthly billing day — the day-of-month they started — it emails them an
-invoice. If they haven't paid, it chases them every 2 days. At 15 days
-overdue it sends one final "hosting suspended" notice and then goes quiet.
-When a bank transfer lands, you press **Mark paid** in `/admin`. That's the
-only manual step, because a bank transfer arriving isn't something the app
-can see.
+date they started hosting, and optionally their Vercel project ID). A job
+runs once a day on Vercel. On each client's monthly billing day — the
+day-of-month they started — it emails them an invoice. If they haven't paid,
+it chases them every 2 days. At 15 days overdue it sends one final "hosting
+suspended" notice and — if a Vercel project ID is set for that client —
+automatically unassigns their domain from the project, taking the site
+offline. When a bank transfer lands, you press **Mark paid** in `/admin`,
+which reassigns the domain and brings the site back. That's the only manual
+step, because a bank transfer arriving isn't something the app can see.
 
 ## Getting it running
 
@@ -81,7 +83,22 @@ Fill in `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`.
 `BANK_ACCOUNT_NAME`, `BANK_SORT_CODE`, `BANK_ACCOUNT_NUMBER`. These are
 printed on every invoice email so clients know where to send the money.
 
-### 6. Deploy to Vercel
+### 6. Connect the Vercel API (optional, for automatic suspension)
+
+Without this, a client hitting 15 days overdue still gets flagged and emailed
+a final notice, but you take the site down/back up by hand as before. With
+it, that happens automatically.
+
+1. Create a token at
+   [vercel.com/account/tokens](https://vercel.com/account/tokens) and set
+   `VERCEL_TOKEN`.
+2. If your client projects live under a Vercel team rather than your personal
+   account, also set `VERCEL_TEAM_ID` or `VERCEL_TEAM_SLUG`.
+3. In `/admin`, enter each client's **Vercel project ID** (Project → Settings
+   → General) when adding or editing them. Clients without one just keep the
+   manual-only behaviour.
+
+### 7. Deploy to Vercel
 
 1. Push the repo to GitHub and import it into Vercel.
 2. Copy **every** variable from `.env.example` into Project → Settings →
@@ -90,7 +107,7 @@ printed on every invoice email so clients know where to send the money.
 4. Deploy. `vercel.json` registers the daily cron job automatically — confirm
    it under Project → Cron Jobs.
 
-### 7. Point your domain (Namecheap → Vercel)
+### 8. Point your domain (Namecheap → Vercel)
 
 1. Vercel: Project → Settings → Domains → add your domain.
 2. Vercel shows the DNS records it wants — usually an `A` record for the root
@@ -112,7 +129,7 @@ and a status:
 | **No invoice yet** | Started, but their first billing day hasn't come round. |
 | **Awaiting · day N of 15** | Invoice sent, payment not yet marked. Reminders go out every 2 days. |
 | **Paid · YYYY-MM** | You've marked this month's invoice paid. No more email until next month. |
-| **Overdue · suspended** | 15 days passed with no payment. Final notice sent, emails stopped. Take the site down manually. |
+| **Overdue · suspended** | 15 days passed with no payment. Final notice sent, emails stopped. Site taken offline automatically if a Vercel project ID is set; otherwise take it down manually. |
 
 **Add client** creates a record. **Edit** changes details. **Mark paid** is
 what you press when the money arrives. **Mark unpaid** undoes it if you press
@@ -120,6 +137,10 @@ it by mistake. **Remove** deletes the client entirely.
 
 Setting a client to inactive (uncheck "Active") stops all invoicing without
 deleting their record.
+
+If an automated takedown or restore fails (e.g. a wrong Vercel project ID, or
+`VERCEL_TOKEN` missing/expired), the client's row shows a warning with the
+error so you know to step in and take the site down/back up by hand.
 
 ## The invoice schedule
 
@@ -129,9 +150,11 @@ deleting their record.
 - **Payment window** is 15 days from the invoice.
 - **Reminders** go out every 2 days while unpaid, escalating in urgency by
   counting down the days remaining.
-- **Day 15** sends one final notice saying hosting is being suspended, and
-  the client is flagged suspended so no further email goes out.
+- **Day 15** sends one final notice saying hosting has been suspended, flags
+  the client suspended so no further email goes out, and — if a Vercel
+  project ID is set — unassigns their domain, taking the site offline.
 - Marking paid, or the next month's billing day arriving, resets the cycle.
+  If the site was automatically taken offline, marking paid brings it back.
 
 Every figure and date in those emails comes from the stored client record or
 from arithmetic on it — nothing is written freshly per send. Money emails
@@ -150,7 +173,13 @@ against real SMTP credentials.
 ## Security note: what this app stores
 
 - **Client records** (name, email, website, amount, start date, payment
-  status) live in Upstash Redis. Nothing else is stored about them.
+  status, Vercel project ID) live in Upstash Redis. Nothing else is stored
+  about them.
+- **`VERCEL_TOKEN`** is a personal/team API token, treated like the SMTP
+  password and cron secret: env var only, never in source, never sent to the
+  browser. Scope it to the minimum needed (ideally a token that can only
+  manage the relevant projects' domains) since it can add/remove domains on
+  any project it has access to.
 - **No card details, ever.** There is no payment processor and no card field
   anywhere in the app — payment is bank transfer against an emailed invoice.
 - **No client logins.** Clients never sign in; they only receive email. The
@@ -196,6 +225,7 @@ src/
     session.ts                Signed session cookies (edge-safe)
     password.ts               scrypt hash + verify
     mailer.ts                 SMTP transport
+    vercel.ts                 Vercel REST API: suspend/reinstate a client's domain
     rate-limit.ts             In-memory per-IP limiter
 scripts/
   hash-password.mjs           npm run hash-password

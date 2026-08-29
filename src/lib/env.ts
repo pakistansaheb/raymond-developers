@@ -64,6 +64,9 @@ export const serverEnv = {
   get bankAccountNumber() {
     return required("BANK_ACCOUNT_NUMBER", process.env.BANK_ACCOUNT_NUMBER);
   },
+  get vercelToken() {
+    return required("VERCEL_TOKEN", process.env.VERCEL_TOKEN);
+  },
 };
 
 export function smtpConfigured(): boolean {
@@ -93,4 +96,13 @@ export function invoicingConfigured(): boolean {
       process.env.BANK_SORT_CODE &&
       process.env.BANK_ACCOUNT_NUMBER,
   );
+}
+
+/**
+ * True once a Vercel API token is set, so per-client automated suspension /
+ * reinstatement can run. Optional — without it the app falls back to the
+ * original manual-takedown behaviour.
+ */
+export function hostingAutomationConfigured(): boolean {
+  return Boolean(process.env.VERCEL_TOKEN);
 }
