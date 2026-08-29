@@ -23,7 +23,7 @@ export function Contact() {
           <a
             data-reveal
             href="mailto:abdulrahmanammad7@gmail.com"
-            className="t-display inline-block py-3 text-3xl underline decoration-hairline decoration-2 underline-offset-8 transition-colors hover:decoration-signal md:text-5xl"
+            className="t-display inline-block break-all py-3 text-2xl underline decoration-hairline decoration-2 underline-offset-8 transition-colors hover:decoration-signal sm:text-3xl md:text-5xl"
           >
             abdulrahmanammad7@gmail.com
           </a>
