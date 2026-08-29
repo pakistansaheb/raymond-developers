@@ -10,6 +10,22 @@ const PROJECTS = [
     built: "Design, build and ongoing hosting.",
     href: "https://raymondlogistics.co.uk",
   },
+  {
+    code: "03.2",
+    name: "HP Cutz",
+    summary:
+      "A Birmingham barbershop's site: services, pricing and a straightforward booking flow that turns a browse into a booked appointment.",
+    built: "Design, build and ongoing hosting.",
+    href: "https://hpcutz.com",
+  },
+  {
+    code: "03.3",
+    name: "CM Courier Group",
+    summary:
+      "A courier and haulage marketing site: service pages, an instant quote tool, and the copy and structure needed to convert an enquiry into a booked job.",
+    built: "Design, build and ongoing hosting.",
+    href: "https://cm-courier-group.vercel.app",
+  },
 ] as const;
 
 export function Work() {
@@ -20,7 +36,7 @@ export function Work() {
           <div data-reveal>
             <Eyebrow label="WORK" code="03" descriptor="SHIPPED" />
             <h2 className="t-display t-d2 mt-6 max-w-2xl">
-              One project
+              Three projects
               <br />
               live. More
               <br />
@@ -52,7 +68,7 @@ export function Work() {
                     aria-hidden="true"
                     className="row-arrow t-mono self-start text-chalk sm:self-center"
                   >
-                    raymondlogistics.co.uk →
+                    {project.href.replace(/^https?:\/\//, "")} →
                   </span>
                 </a>
               </li>
@@ -63,7 +79,7 @@ export function Work() {
               data-reveal
               className="grid grid-cols-1 items-center gap-3 border-t border-hairline py-8 opacity-40 sm:grid-cols-[5rem_1fr]"
             >
-              <span className="t-mono text-graphite">03.2</span>
+              <span className="t-mono text-graphite">03.4</span>
               <p className="t-mono text-graphite">Next project — in progress.</p>
             </li>
           </ul>
