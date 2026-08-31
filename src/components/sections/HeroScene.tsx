@@ -1,10 +1,13 @@
 /**
  * An original pixel-art-style scene — park setting, small skyline, a
- * laptop showing real code — same general mood as the reliabuilds.com
- * hero visual that inspired it, but its own composition and artwork, not
- * a copy: hand-built from flat SVG shapes, not an image asset (no
+ * laptop showing code — same general mood as the reliabuilds.com hero
+ * visual that inspired it, but its own composition and artwork, not a
+ * copy: hand-built from flat SVG shapes, not an image asset (no
  * image-generation tool is available in this environment, and lifting
- * their actual illustration wouldn't be appropriate regardless).
+ * their actual illustration wouldn't be appropriate regardless). The
+ * snippet is illustrative of what this codebase actually does (pausing a
+ * client's site) kept deliberately short so it stays legible at any size,
+ * down to the smallest mobile screens, rather than a verbatim excerpt.
  *
  * Monochrome by construction — only the site's existing void/hairline/
  * graphite/chalk/signal tokens, no new hues, so "black and white" needs
@@ -24,7 +27,7 @@ const VIEW_H = 360;
 // Laptop screen inner area, in viewBox units — the HTML code overlay
 // below is positioned from these same numbers so it can't drift out of
 // sync with the drawn bezel.
-const SCREEN = { x: 780, y: 118, w: 280, h: 168 };
+const SCREEN = { x: 640, y: 118, w: 230, h: 140 };
 
 export function HeroScene() {
   return (
@@ -77,7 +80,7 @@ export function HeroScene() {
           <circle cx="450" cy="235" r="26" opacity="0.6" />
           <circle cx="508" cy="233" r="26" opacity="0.6" />
         </g>
-        <g fill="var(--color-graphite)">
+        <g fill="var(--color-graphite)" transform="translate(-45, 0)">
           <rect x="602" y="266" width="10" height="34" />
           <circle cx="607" cy="240" r="30" opacity="0.8" />
           <circle cx="586" cy="252" r="18" opacity="0.6" />
@@ -147,7 +150,7 @@ export function HeroScene() {
       {/* Real code, positioned to sit exactly inside the SVG screen rect above,
           and centered within it both ways. */}
       <pre
-        className="absolute flex items-center justify-center overflow-hidden bg-void font-mono text-[6.5px] leading-[1.5] text-graphite sm:text-[8px] md:text-[9px]"
+        className="absolute flex items-center justify-center overflow-hidden bg-void font-mono text-[5px] leading-[1.6] text-graphite sm:text-[8px] md:text-[9px]"
         style={{
           left: `${(SCREEN.x / VIEW_W) * 100}%`,
           top: `${(SCREEN.y / VIEW_H) * 100}%`,
@@ -157,20 +160,11 @@ export function HeroScene() {
         }}
       >
         <code>
-          <Keyword>export async function</Keyword> suspendDomain(client) {"{"}
+          <Keyword>function</Keyword> stop(site) {"{"}
           {"\n"}
-          {"  "}<Keyword>const</Keyword> domain = domainFor(client);
+          {"  "}vercel.pause(site);
           {"\n"}
-          {"  "}<Keyword>if</Keyword> (!client.vercelProjectId) <Keyword>return</Keyword>;
-          {"\n\n"}
-          {"  "}<Keyword>await</Keyword> vercelRequest(
-          {"\n"}
-          {"    "}
-          {`\`/v9/projects/\${id}/domains/\${domain}\``}
-          ,{"\n"}
-          {"    "}{"{"} method: <Keyword>&quot;DELETE&quot;</Keyword> {"}"},
-          {"\n"}
-          {"  "});
+          {"  "}<Keyword>return</Keyword> true;
           {"\n"}
           {"}"}
         </code>
