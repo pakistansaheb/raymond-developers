@@ -147,10 +147,14 @@ export function HeroScene() {
         })()}
       </svg>
 
-      {/* Real code, positioned to sit exactly inside the SVG screen rect above,
-          and centered within it both ways. */}
+      {/* Real code, positioned to sit exactly inside the SVG screen rect above.
+          whitespace-pre-wrap + break-words + min-w-0 guarantee containment
+          regardless of exact font-metric assumptions across devices/engines
+          — a line that's a touch too long wraps instead of overhanging the
+          screen edge, rather than relying on precise character-width math
+          (which doesn't hold up identically on every phone). */}
       <pre
-        className="absolute flex items-center justify-center overflow-hidden bg-void font-mono text-[5px] leading-[1.6] text-graphite sm:text-[8px] md:text-[9px]"
+        className="absolute flex items-center overflow-hidden bg-void font-mono text-[5px] leading-[1.6] text-graphite sm:text-[8px] md:text-[9px]"
         style={{
           left: `${(SCREEN.x / VIEW_W) * 100}%`,
           top: `${(SCREEN.y / VIEW_H) * 100}%`,
@@ -159,7 +163,7 @@ export function HeroScene() {
           padding: "4%",
         }}
       >
-        <code>
+        <code className="block w-full min-w-0 whitespace-pre-wrap break-words">
           <Keyword>function</Keyword> stop(site) {"{"}
           {"\n"}
           {"  "}vercel.pause(site);
