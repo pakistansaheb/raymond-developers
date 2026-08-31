@@ -24,13 +24,13 @@ const VIEW_H = 360;
 // Laptop screen inner area, in viewBox units — the HTML code overlay
 // below is positioned from these same numbers so it can't drift out of
 // sync with the drawn bezel.
-const SCREEN = { x: 838, y: 118, w: 300, h: 168 };
+const SCREEN = { x: 780, y: 118, w: 280, h: 168 };
 
 export function HeroScene() {
   return (
     <div
       aria-hidden="true"
-      className="relative aspect-[10/3] w-full min-w-0 overflow-hidden border border-hairline"
+      className="relative aspect-[16/9] w-full min-w-0 overflow-hidden border border-hairline sm:aspect-[10/3]"
     >
       <svg
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
@@ -48,8 +48,10 @@ export function HeroScene() {
           <ellipse cx="690" cy="36" rx="24" ry="15" />
         </g>
 
-        {/* Skyline */}
-        <g fill="var(--color-hairline)">
+        {/* Skyline — shifted in from the left edge so a tighter mobile crop
+            (see the container's aspect-ratio classes) doesn't immediately
+            eat into it. */}
+        <g fill="var(--color-hairline)" transform="translate(60, 0)">
           <rect x="0" y="200" width="60" height="100" />
           <rect x="70" y="160" width="50" height="140" />
           <rect x="130" y="220" width="70" height="80" />
@@ -57,7 +59,7 @@ export function HeroScene() {
           <rect x="275" y="190" width="65" height="110" />
           <rect x="350" y="230" width="80" height="70" />
         </g>
-        <g fill="var(--color-graphite)" opacity="0.6">
+        <g fill="var(--color-graphite)" opacity="0.6" transform="translate(60, 0)">
           <rect x="85" y="180" width="10" height="10" />
           <rect x="85" y="200" width="10" height="10" />
           <rect x="225" y="165" width="10" height="10" />
