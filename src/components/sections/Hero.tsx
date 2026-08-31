@@ -2,8 +2,8 @@ import Link from "next/link";
 
 import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
-import { HeroCode } from "@/components/sections/HeroCode";
 import { HeroGlow } from "@/components/sections/HeroGlow";
+import { HeroScene } from "@/components/sections/HeroScene";
 
 export function Hero() {
   return (
@@ -54,7 +54,7 @@ export function Hero() {
           </div>
 
           <div data-reveal>
-            <HeroCode />
+            <HeroScene />
           </div>
         </Reveal>
       </div>

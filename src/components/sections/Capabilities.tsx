@@ -1,69 +1,43 @@
+import { BlurRevealText } from "@/components/BlurRevealText";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 
-const ROWS = [
-  {
-    code: "02.1",
-    title: "Websites",
-    body: "Marketing and brochure sites, built and connected to your domain.",
-  },
-  {
-    code: "02.2",
-    title: "Web applications",
-    body: "Custom browser tools built around your process, not a template.",
-  },
-  {
-    code: "02.3",
-    title: "Internal tools & dashboards",
-    body: "Staff systems for stock, jobs and records — off the spreadsheet.",
-  },
-  {
-    code: "02.4",
-    title: "Booking & workflow systems",
-    body: "Scheduling and approvals, from submitted to done.",
-  },
-];
+function words(text: string) {
+  const parts = text.split(" ");
+  return parts.flatMap((word, i) => {
+    const span = (
+      <span key={`${word}-${i}`} data-blur-reveal className="text-chalk">
+        {word}
+      </span>
+    );
+    return i < parts.length - 1 ? [span, " "] : [span];
+  });
+}
 
 export function Capabilities() {
   return (
     <section id="02" className="bleed-rule px-6 py-24 md:px-10 md:py-32 xl:pl-28">
-      <div className="mx-auto grid max-w-measure grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
-        <div className="md:col-span-4">
-          <Reveal>
-            <div data-reveal className="md:sticky md:top-24">
-              <Eyebrow label="CAPABILITY" code="02" descriptor="SCOPE" />
-              <h2 className="t-display t-d2 mt-6 max-w-sm">
-                What we
-                <br />
-                actually
-                <br />
-                build.
-              </h2>
-            </div>
-          </Reveal>
-        </div>
+      <div className="mx-auto max-w-measure">
+        <Reveal className="flex flex-col gap-10">
+          <div data-reveal>
+            <Eyebrow label="CAPABILITY" code="02" descriptor="SCOPE" />
+          </div>
 
-        <div className="md:col-span-8">
-          <Reveal>
-            <ul>
-              {ROWS.map((row) => (
-                <li
-                  key={row.code}
-                  data-reveal
-                  className="grid grid-cols-1 gap-2 border-b border-hairline py-7 first:border-t sm:grid-cols-[5rem_1fr] sm:gap-6"
-                >
-                  <span className="t-mono text-graphite">{row.code}</span>
-                  <div>
-                    <h3 className="t-ui text-xl text-chalk md:text-2xl">
-                      {row.title}
-                    </h3>
-                    <p className="t-lead mt-2 text-graphite">{row.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
+          <BlurRevealText className="t-ui max-w-4xl text-3xl leading-snug sm:text-4xl md:text-5xl">
+            {words("What we build is real software")}{" "}
+            {words(
+              "— websites, web applications, internal tools and booking systems,",
+            )}{" "}
+            <span
+              data-blur-reveal
+              className="mx-1 inline-flex h-7 w-7 translate-y-1 items-center justify-center rounded-md bg-chalk align-middle font-mono text-[11px] font-bold text-void sm:h-8 sm:w-8"
+            >
+              RD
+            </span>{" "}
+            {words("built around how your business actually runs,")}{" "}
+            {words("not squeezed into a template.")}
+          </BlurRevealText>
+        </Reveal>
       </div>
     </section>
   );

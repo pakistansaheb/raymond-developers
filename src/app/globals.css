@@ -191,6 +191,24 @@ input,
   transform: none;
 }
 
+/* --- Blur-in word reveal ----------------------------------------------
+   Continuously scroll-linked (see BlurRevealText.tsx) — opacity/filter/
+   weight are set per animation frame from scroll position, rather than
+   triggered once like [data-reveal]. Same duration/easing as [data-reveal]
+   above, so it feels like the same motion language as the rest of the
+   site rather than its own separate effect.
+--------------------------------------------------------------------------- */
+[data-blur-reveal] {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(10px);
+  font-weight: 400;
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    font-weight 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
 /* The live indicator on the status pill. */
 @keyframes pulse-square {
   0%,
@@ -215,6 +233,12 @@ input,
   [data-reveal] {
     opacity: 1;
     transform: none;
+    transition: none;
+    transition-delay: 0ms;
+  }
+  [data-blur-reveal] {
+    opacity: 1;
+    filter: none;
     transition: none;
     transition-delay: 0ms;
   }
