@@ -5,27 +5,27 @@ const STEPS = [
   {
     n: "04.1",
     title: "Enquiry",
-    body: "You tell us what you need and roughly what “done” looks like. We reply with questions, not a sales call.",
+    body: "You tell us what you need. We reply with questions, not a pitch.",
   },
   {
     n: "04.2",
     title: "Proposal",
-    body: "A fixed scope and a fixed price, in writing, before any work starts. No hourly estimate that quietly grows.",
+    body: "A fixed scope and price, in writing, before anything starts.",
   },
   {
     n: "04.3",
     title: "Design",
-    body: "Pages and flows first, agreed with you, before a line of code is written against them.",
+    body: "Pages and flows agreed first, before a line of code is written.",
   },
   {
     n: "04.4",
     title: "Build",
-    body: "The site or application gets built against the scope you signed off — nothing added, nothing skipped.",
+    body: "Built against the signed-off scope — nothing added, nothing skipped.",
   },
   {
     n: "04.5",
     title: "Launch",
-    body: "It goes live on your domain, hosting starts, and you're handed a finished system, not a work in progress.",
+    body: "Live on your domain, hosting running, handed over finished.",
   },
 ];
 

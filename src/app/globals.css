@@ -91,7 +91,7 @@ input,
   font-size: clamp(2.75rem, 11.5vw, 8.5rem);
 }
 .t-d2 {
-  font-size: clamp(2.25rem, 7.5vw, 5rem);
+  font-size: clamp(2.5rem, 8.5vw, 5.5rem);
 }
 .t-d3 {
   font-size: clamp(1.5rem, 3.4vw, 2.25rem);
@@ -118,9 +118,40 @@ input,
 
 .t-lead {
   font-family: var(--font-serif);
-  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
-  line-height: 1.55;
+  font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+  line-height: 1.5;
+  color: var(--color-graphite);
+}
+
+/* --- Legal page body content -------------------------------------------
+   Plain <h2>/<p>/<a> tags from privacy/terms page.tsx content. Tailwind
+   arbitrary variants can't target custom (non-Tailwind) classes like
+   `.t-display`, so this has to be a real descendant rule, not
+   `[&_h2]:t-display`-style utility composition.
+--------------------------------------------------------------------------- */
+.legal-content h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: -0.015em;
   color: var(--color-chalk);
+  text-wrap: balance;
+  font-size: clamp(1.5rem, 3.4vw, 2.25rem);
+  margin-top: 1rem;
+}
+.legal-content p {
+  color: var(--color-graphite);
+}
+.legal-content a {
+  color: var(--color-chalk);
+  text-decoration: underline;
+  text-decoration-color: var(--color-hairline);
+  text-underline-offset: 4px;
+}
+.legal-content a:hover {
+  text-decoration-color: var(--color-signal);
 }
 
 /* --- Full-bleed rules ------------------------------------------------------

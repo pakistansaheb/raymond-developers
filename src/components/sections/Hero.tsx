@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
+import { HeroCode } from "@/components/sections/HeroCode";
 import { HeroGlow } from "@/components/sections/HeroGlow";
 
 export function Hero() {
@@ -33,10 +34,8 @@ export function Hero() {
 
           <div data-reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <p className="t-lead max-w-xl">
-              Raymond Developers is a Birmingham studio that designs and
-              builds websites and bespoke software for clients across the
-              UK — from marketing sites to internal tools, dashboards and
-              booking systems.
+              Websites and bespoke software, designed and built in
+              Birmingham for clients across the UK.
             </p>
             <div className="flex shrink-0 gap-3">
               <Link
@@ -52,6 +51,10 @@ export function Hero() {
                 Get in touch
               </a>
             </div>
+          </div>
+
+          <div data-reveal>
+            <HeroCode />
           </div>
         </Reveal>
       </div>

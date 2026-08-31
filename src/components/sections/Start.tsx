@@ -8,14 +8,14 @@ const ROWS = [
   {
     code: "05.1",
     title: "Website — £200",
-    body: "A site of three or more pages with a booking or quote system built in. Fixed price, invoiced once we've scoped it.",
+    body: "Three or more pages with booking or quote built in. Fixed price.",
     cta: "Message on WhatsApp",
     primary: true,
   },
   {
     code: "05.2",
     title: "Custom software",
-    body: "Bespoke web applications and internal tools. Scope varies, so there's no fixed price — tell us what you need and we'll quote it.",
+    body: "Bespoke apps and internal tools. Tell us what you need, we'll quote it.",
     cta: "Message on WhatsApp",
     primary: false,
   },

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 
@@ -5,26 +7,23 @@ const PROJECTS = [
   {
     code: "03.1",
     name: "Raymond Logistics",
-    summary:
-      "A logistics and haulage company site: service pages, a quote request flow, and the copy and structure needed to convert an enquiry into a booked job.",
-    built: "Design and build. Hosted since launch.",
+    summary: "Service pages and a quote flow built to convert.",
     href: "https://raymondlogistics.co.uk",
+    image: "/images/work/raymond-logistics.png",
   },
   {
     code: "03.2",
     name: "HP Cutz",
-    summary:
-      "A Birmingham barbershop's site: services, pricing and a straightforward booking flow that turns a browse into a booked appointment.",
-    built: "Design and build. Hosted since launch.",
+    summary: "Booking flow that turns a browse into an appointment.",
     href: "https://hpcutz.com",
+    image: "/images/work/hp-cutz.png",
   },
   {
     code: "03.3",
     name: "CM Courier Group",
-    summary:
-      "A courier and haulage marketing site: service pages, an instant quote tool, and the copy and structure needed to convert an enquiry into a booked job.",
-    built: "Design and build. Hosted since launch.",
+    summary: "An instant quote tool built into the marketing site.",
     href: "https://cm-courier-group.vercel.app",
+    image: "/images/work/cm-courier-group.png",
   },
 ] as const;
 
@@ -35,54 +34,45 @@ export function Work() {
         <Reveal className="flex flex-col gap-10">
           <div data-reveal>
             <Eyebrow label="WORK" code="03" descriptor="SHIPPED" />
-            <h2 className="t-display t-d2 mt-6 max-w-2xl">
-              Three projects
-              <br />
-              live. More
-              <br />
-              on the way.
-            </h2>
+            <h2 className="t-display t-d2 mt-6 max-w-2xl">Work that ships.</h2>
           </div>
 
-          <ul>
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
             {PROJECTS.map((project) => (
-              <li key={project.code} className="border-t border-hairline py-8 last:border-b">
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-reveal
-                  className="row-link grid grid-cols-1 items-start gap-3 sm:grid-cols-[5rem_1fr_auto] sm:items-center sm:gap-6"
-                >
+              <a
+                key={project.code}
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-reveal
+                className="group flex min-w-0 flex-col gap-4"
+              >
+                <div className="relative aspect-[16/10] w-full min-w-0 overflow-hidden border border-hairline">
+                  <Image
+                    src={project.image}
+                    alt={`${project.name} website`}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover object-top transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-105"
+                  />
+                </div>
+                <div>
                   <span className="t-mono text-graphite">{project.code}</span>
-                  <div>
-                    <h3 className="row-title t-ui text-2xl text-chalk md:text-3xl">
-                      {project.name}
-                    </h3>
-                    <p className="t-lead mt-2 max-w-2xl text-graphite">
-                      {project.summary}
-                    </p>
-                    <p className="t-mono mt-3 text-graphite">{project.built}</p>
-                  </div>
-                  <span
-                    aria-hidden="true"
-                    className="row-arrow t-mono self-start text-chalk sm:self-center"
-                  >
+                  <h3 className="row-title t-ui mt-1 text-xl text-chalk">
+                    {project.name}
+                  </h3>
+                  <p className="t-lead mt-1">{project.summary}</p>
+                  <span className="t-mono mt-3 inline-block text-chalk underline decoration-hairline decoration-2 underline-offset-4 group-hover:decoration-signal">
                     {project.href.replace(/^https?:\/\//, "")} →
                   </span>
-                </a>
-              </li>
+                </div>
+              </a>
             ))}
+          </div>
 
-            {/* Row structure ready for more shipped work. */}
-            <li
-              data-reveal
-              className="grid grid-cols-1 items-center gap-3 border-t border-hairline py-8 opacity-40 sm:grid-cols-[5rem_1fr]"
-            >
-              <span className="t-mono text-graphite">03.4</span>
-              <p className="t-mono text-graphite">Next project — in progress.</p>
-            </li>
-          </ul>
+          <p data-reveal className="t-mono text-graphite">
+            03.4 — Next project in progress.
+          </p>
         </Reveal>
       </div>
     </section>

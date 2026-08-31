@@ -5,22 +5,22 @@ const ROWS = [
   {
     code: "02.1",
     title: "Websites",
-    body: "Marketing sites, brochure sites and landing pages. Built, connected to your domain, and live.",
+    body: "Marketing and brochure sites, built and connected to your domain.",
   },
   {
     code: "02.2",
     title: "Web applications",
-    body: "Custom browser-based tools built around a specific business process rather than a template.",
+    body: "Custom browser tools built around your process, not a template.",
   },
   {
     code: "02.3",
     title: "Internal tools & dashboards",
-    body: "Staff-facing systems for tracking stock, jobs, records or anything else that currently lives in a spreadsheet.",
+    body: "Staff systems for stock, jobs and records — off the spreadsheet.",
   },
   {
     code: "02.4",
     title: "Booking & workflow systems",
-    body: "Scheduling, intake forms and approvals — the logic that moves a request from submitted to done.",
+    body: "Scheduling and approvals, from submitted to done.",
   },
 ];
 
