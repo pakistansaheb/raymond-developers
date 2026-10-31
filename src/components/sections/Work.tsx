@@ -25,6 +25,13 @@ const PROJECTS = [
     href: "https://cm-courier-group.vercel.app",
     image: "/images/work/cm-courier-group.png",
   },
+  {
+    code: "03.4",
+    name: "Ayrah Logistics",
+    summary: "Refrigerated transport site with a live quote tool that emails every enquiry.",
+    href: "https://ayrahlogistics.com",
+    image: "/images/work/ayrah-logistics.png",
+  },
 ] as const;
 
 export function Work() {
@@ -37,7 +44,7 @@ export function Work() {
             <h2 className="t-display t-d2 mt-6 max-w-2xl">Work that ships.</h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8 xl:grid-cols-4">
             {PROJECTS.map((project) => (
               <a
                 key={project.code}
@@ -71,7 +78,7 @@ export function Work() {
           </div>
 
           <p data-reveal className="t-mono text-graphite">
-            03.4 — Next project in progress.
+            03.5 — Next project in progress.
           </p>
         </Reveal>
       </div>

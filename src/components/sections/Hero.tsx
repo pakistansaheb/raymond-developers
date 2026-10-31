@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 import { HeroGlow } from "@/components/sections/HeroGlow";
-import { HeroScene } from "@/components/sections/HeroScene";
 
 export function Hero() {
   return (
@@ -51,10 +50,6 @@ export function Hero() {
                 Get in touch
               </a>
             </div>
-          </div>
-
-          <div data-reveal>
-            <HeroScene />
           </div>
         </Reveal>
       </div>
