@@ -1,34 +1,24 @@
-import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 
 export function Contact() {
   return (
-    <section id="07" className="bleed-rule px-6 py-24 md:px-10 md:py-32 xl:pl-28">
-      <div className="mx-auto max-w-measure">
-        <Reveal className="flex flex-col gap-8">
-          <div data-reveal>
-            <Eyebrow label="CONTACT" code="07" descriptor="REACH" />
-          </div>
-          <h2 data-reveal className="t-display t-d2 max-w-2xl">
-            Tell us what
-            <br />
-            you're trying
-            <br />
-            to build.
-          </h2>
-          <p data-reveal className="t-lead max-w-xl text-graphite">
-            Email a rough idea, a link to something you like, or a problem
-            you haven't solved yet. We'll reply with questions.
-          </p>
-          <a
-            data-reveal
-            href="mailto:abdulrahmanammad7@gmail.com"
-            className="t-display inline-block break-all py-3 text-2xl underline decoration-hairline decoration-2 underline-offset-8 transition-colors hover:decoration-signal sm:text-3xl md:text-5xl"
-          >
-            abdulrahmanammad7@gmail.com
-          </a>
-        </Reveal>
-      </div>
+    <section id="contact" className="ground-light px-6 py-32 md:px-10 md:py-48">
+      <Reveal className="mx-auto flex max-w-wide flex-col gap-10">
+        <h2 data-reveal className="t-display t-d1 max-w-5xl">
+          Tell us what you&apos;re trying to build.
+        </h2>
+        <p data-reveal className="t-lead max-w-xl">
+          Email a rough idea, a link to something you like, or a problem you
+          haven&apos;t solved yet. We&apos;ll reply with questions.
+        </p>
+        <a
+          data-reveal
+          href="mailto:abdulrahmanammad7@gmail.com"
+          className="t-display t-d3 inline-block self-start break-all py-2 underline decoration-graphite decoration-1 underline-offset-8 transition-colors duration-150 hover:decoration-signal"
+        >
+          abdulrahmanammad7@gmail.com
+        </a>
+      </Reveal>
     </section>
   );
 }

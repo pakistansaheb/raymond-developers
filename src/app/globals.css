@@ -1,55 +1,43 @@
 @import "tailwindcss";
 
-/* ---------------------------------------------------------------------------
-   Raymond Developers — design tokens.
-
-   Five values, no hue. The only chromatic event on the site is inversion:
-   one full-bleed band flips to `signal` ground with `void` type.
---------------------------------------------------------------------------- */
 @theme {
   --color-void: #050505;
-  --color-chalk: #edede8;
-  --color-graphite: #8c8c86;
-  --color-hairline: #1f1f1d;
+  --color-surface: #121212;
+  --color-chalk: #f7f7f5;
+  --color-graphite: #9a9a96;
+  --color-hairline: #242423;
   --color-signal: #ffffff;
 
-  --font-display: var(--font-archivo), "Arial Narrow", system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 
-  --spacing-measure: 75rem; /* 1200px content measure */
+  --spacing-measure: 75rem;
+  --spacing-wide: 90rem;
 }
 
 :root {
   color-scheme: dark;
-  --rule: 1px solid var(--color-hairline);
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   background: var(--color-void);
   color: var(--color-chalk);
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.0625rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
-/* --- Touch handling ---------------------------------------------------------
-   Mobile Safari treats a quick pair of taps close together in time as a
-   double-tap-to-zoom gesture — easy to trigger by accident while tapping
-   through buttons, links or the FAQ accordion, and it reads as the page
-   randomly zooming. This tells the browser interactive elements only need a
-   single tap, removing that gesture (and the ~300ms tap delay) on exactly
-   the elements a user taps, without touching pinch-zoom anywhere else on the
-   page — zoom stays available everywhere, which accessibility requires.
---------------------------------------------------------------------------- */
+/* Prevents double-tap zoom on controls while leaving pinch-zoom available. */
 a,
 button,
 summary,
@@ -63,82 +51,110 @@ input,
   color: var(--color-void);
 }
 
-/* --- Focus -----------------------------------------------------------------
-   One visible treatment everywhere. Never removed, never made subtle.
---------------------------------------------------------------------------- */
 :focus-visible {
   outline: 2px solid var(--color-signal);
   outline-offset: 3px;
-  border-radius: 0;
 }
 
-/* --- Type roles ----------------------------------------------------------- */
+/* Tailwind utilities read these tokens, so redefining them re-inks the subtree. */
+.ground-light {
+  --color-void: #f7f7f5;
+  --color-surface: #ecece8;
+  --color-chalk: #0a0a0a;
+  --color-graphite: #55554f;
+  --color-hairline: #d2d2cc;
+  --color-signal: #0a0a0a;
+  background: var(--color-void);
+  color: var(--color-chalk);
+}
 
-/* Display: Archivo at the same width and weight as the wordmark. The logo and
-   the headlines are one object at different sizes. */
 .t-display {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-stretch: 68%;
-  text-transform: uppercase;
-  line-height: 0.86;
-  letter-spacing: -0.015em;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: var(--color-chalk);
   text-wrap: balance;
 }
 
 .t-d1 {
-  font-size: clamp(2.75rem, 11.5vw, 8.5rem);
+  font-size: clamp(3.25rem, 7vw, 8rem);
+  line-height: 0.95;
 }
 .t-d2 {
-  font-size: clamp(2.5rem, 8.5vw, 5.5rem);
+  font-size: clamp(2.25rem, 4.5vw, 3.75rem);
 }
 .t-d3 {
-  font-size: clamp(1.5rem, 3.4vw, 2.25rem);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
 }
 
-/* Interface: the same family, normal width, normal weight. */
 .t-ui {
-  font-family: var(--font-display);
-  font-stretch: 100%;
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
-/* Utility: registry codes, labels, stat captions, account metadata. */
+/* Small interface label, also used across the admin screens. */
 .t-mono {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
   line-height: 1.4;
 }
 
 .t-lead {
-  font-family: var(--font-serif);
-  font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.5;
   color: var(--color-graphite);
+  text-wrap: pretty;
 }
 
-/* --- Legal page body content -------------------------------------------
-   Plain <h2>/<p>/<a> tags from privacy/terms page.tsx content. Tailwind
-   arbitrary variants can't target custom (non-Tailwind) classes like
-   `.t-display`, so this has to be a real descendant rule, not
-   `[&_h2]:t-display`-style utility composition.
---------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    opacity 0.15s ease-out,
+    border-color 0.15s ease-out,
+    transform 0.12s ease-out;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-solid {
+  background: var(--color-signal);
+  color: var(--color-void);
+}
+.btn-line {
+  border: 1px solid color-mix(in srgb, var(--color-chalk) 35%, transparent);
+  color: var(--color-chalk);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-solid:hover {
+    opacity: 0.85;
+  }
+  .btn-line:hover {
+    border-color: var(--color-signal);
+  }
+}
+
 .legal-content h2 {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-stretch: 68%;
-  text-transform: uppercase;
-  line-height: 0.86;
-  letter-spacing: -0.015em;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
   color: var(--color-chalk);
   text-wrap: balance;
-  font-size: clamp(1.5rem, 3.4vw, 2.25rem);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
   margin-top: 1rem;
 }
 .legal-content p {
@@ -147,83 +163,111 @@ input,
 .legal-content a {
   color: var(--color-chalk);
   text-decoration: underline;
-  text-decoration-color: var(--color-hairline);
+  text-decoration-color: var(--color-graphite);
   text-underline-offset: 4px;
 }
 .legal-content a:hover {
   text-decoration-color: var(--color-signal);
 }
 
-/* --- Full-bleed rules ------------------------------------------------------
-   Rules run past the measure to both viewport edges, so the page reads as a
-   ledger with a wide margin rather than a stack of boxes.
---------------------------------------------------------------------------- */
-.bleed-rule {
-  position: relative;
-}
-.bleed-rule::before {
-  /* Deliberately not 100vw: on mobile Safari, 100vw can measure wider than
-     the true visible viewport, pushing this rule past the edge and exposing
-     a gap. These sections are already unconstrained full-width elements (no
-     narrower parent), so left/right: 0 reaches the same true edges safely. */
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  border-top: var(--rule);
-}
-
-/* --- Scroll reveal ---------------------------------------------------------
-   One orchestrated group per section: the section marker, then the content,
-   on a short stagger. Not every element animating on its own.
---------------------------------------------------------------------------- */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(12px);
   transition:
-    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
-  transition-delay: calc(var(--reveal-index, 0) * 70ms);
+    opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition-delay: min(calc(var(--reveal-index, 0) * 50ms), 200ms);
 }
 [data-reveal].is-revealed {
   opacity: 1;
   transform: none;
 }
 
-/* --- Blur-in word reveal ----------------------------------------------
-   Continuously scroll-linked (see BlurRevealText.tsx) — opacity/filter/
-   weight are set per animation frame from scroll position, rather than
-   triggered once like [data-reveal]. Same duration/easing as [data-reveal]
-   above, so it feels like the same motion language as the rest of the
-   site rather than its own separate effect.
---------------------------------------------------------------------------- */
-[data-blur-reveal] {
-  display: inline-block;
-  opacity: 0;
-  filter: blur(10px);
-  font-weight: 400;
-  transition:
-    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
-    filter 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
-    font-weight 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+/* Hero stage: real project screenshots on separate planes, driven by --p. */
+.stage {
+  --p: 0;
+  position: relative;
+}
+.stage-plate {
+  position: relative;
+  height: 72vw;
+}
+.stage-frame {
+  position: absolute;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-hairline);
+  background: var(--color-surface);
+}
+.stage-main {
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 86%;
+  box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.9);
+  transform: translateY(calc(var(--p) * -12px));
+}
+.stage-back {
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 62%;
+  transform: translateY(calc(var(--p) * -48px));
+}
+.stage-back--left {
+  display: none;
+}
+.stage-caption {
+  margin-top: 1.5rem;
 }
 
-/* The live indicator on the status pill. */
-@keyframes pulse-square {
-  0%,
-  70% {
-    opacity: 1;
+@media (min-width: 768px) {
+  .stage {
+    height: 230svh;
   }
-  85% {
-    opacity: 0.15;
+  .stage-sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100svh;
+    overflow: hidden;
+    padding-top: 5.5rem;
   }
-  100% {
-    opacity: 1;
+  .stage-plate {
+    flex: none;
+    width: min(92vw, calc((100svh - 10rem) * 1.6));
+    height: auto;
+    aspect-ratio: 16 / 10;
   }
-}
-.live-square {
-  animation: pulse-square 2.6s ease-in-out infinite;
+  .stage-main {
+    inset: 0;
+    width: 100%;
+    transform-origin: top center;
+    transform: scale(calc(0.66 + 0.34 * var(--p)));
+  }
+  .stage-back {
+    top: 9%;
+    width: 50%;
+    opacity: calc(1 - var(--p));
+  }
+  .stage-back--left {
+    display: block;
+    right: auto;
+    left: -3%;
+    transform: translateX(calc(var(--p) * -60vw));
+  }
+  .stage-back--right {
+    right: -3%;
+    transform: translateX(calc(var(--p) * 60vw));
+  }
+  .stage-caption {
+    width: min(92vw, calc((100svh - 10rem) * 1.6));
+    margin-top: 1.25rem;
+    opacity: calc((var(--p) - 0.75) * 4);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -234,16 +278,26 @@ input,
     opacity: 1;
     transform: none;
     transition: none;
-    transition-delay: 0ms;
   }
-  [data-blur-reveal] {
+  .stage {
+    height: auto;
+  }
+  .stage-sticky {
+    position: static;
+    height: auto;
+    padding-bottom: 2rem;
+  }
+  .stage-main,
+  .stage-back,
+  .stage-back--left,
+  .stage-back--right {
+    transform: none;
+  }
+  .stage-main {
+    transform: none;
+  }
+  .stage-caption {
     opacity: 1;
-    filter: none;
-    transition: none;
-    transition-delay: 0ms;
-  }
-  .live-square {
-    animation: none;
   }
   *,
   *::before,
@@ -254,26 +308,6 @@ input,
   }
 }
 
-/* --- Row hover -------------------------------------------------------------
-   Index rows are hairline-separated, not cards. The only hover state is the
-   text going pure white and the marker sliding a few pixels.
---------------------------------------------------------------------------- */
-.row-link .row-title {
-  transition: color 0.25s ease;
-}
-.row-link:hover .row-title,
-.row-link:focus-visible .row-title {
-  color: var(--color-signal);
-}
-.row-link .row-arrow {
-  transition: transform 0.25s ease;
-}
-.row-link:hover .row-arrow,
-.row-link:focus-visible .row-arrow {
-  transform: translateX(4px);
-}
-
-/* --- Accordion (native details/summary) ----------------------------------- */
 details > summary {
   list-style: none;
   cursor: pointer;
@@ -282,7 +316,7 @@ details > summary::-webkit-details-marker {
   display: none;
 }
 details > summary .fq-sign {
-  transition: transform 0.25s ease;
+  transition: transform 0.18s ease-out;
 }
 details[open] > summary .fq-sign {
   transform: rotate(45deg);

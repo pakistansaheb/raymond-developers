@@ -1,4 +1,3 @@
-import { RegistryRail } from "@/components/RegistryRail";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Capabilities } from "@/components/sections/Capabilities";
@@ -12,7 +11,6 @@ import { Work } from "@/components/sections/Work";
 export default function HomePage() {
   return (
     <>
-      <RegistryRail />
       <SiteHeader />
       <main>
         <Hero />

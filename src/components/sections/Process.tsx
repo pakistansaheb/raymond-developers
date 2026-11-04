@@ -1,29 +1,23 @@
-import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 
 const STEPS = [
   {
-    n: "04.1",
     title: "Enquiry",
     body: "You tell us what you need. We reply with questions, not a pitch.",
   },
   {
-    n: "04.2",
     title: "Proposal",
     body: "A fixed scope and price, in writing, before anything starts.",
   },
   {
-    n: "04.3",
     title: "Design",
     body: "Pages and flows agreed first, before a line of code is written.",
   },
   {
-    n: "04.4",
     title: "Build",
-    body: "Built against the signed-off scope — nothing added, nothing skipped.",
+    body: "Built against the signed-off scope. Nothing added, nothing skipped.",
   },
   {
-    n: "04.5",
     title: "Launch",
     body: "Live on your domain, hosting running, handed over finished.",
   },
@@ -31,35 +25,29 @@ const STEPS = [
 
 export function Process() {
   return (
-    <section id="04" className="bleed-rule px-6 py-24 md:px-10 md:py-32 xl:pl-28">
-      <div className="mx-auto max-w-measure">
-        <Reveal className="flex flex-col gap-10">
-          <div data-reveal>
-            <Eyebrow label="PROCESS" code="04" descriptor="SEQUENCE" />
-            <h2 className="t-display t-d2 mt-6 max-w-2xl">
-              Enquiry to
-              <br />
-              launch, in
-              <br />
-              five steps.
-            </h2>
-          </div>
-
-          <ol>
-            {STEPS.map((step) => (
-              <li
-                key={step.n}
-                data-reveal
-                className="grid grid-cols-1 gap-2 border-t border-hairline py-7 last:border-b sm:grid-cols-[5rem_10rem_1fr] sm:gap-6"
-              >
-                <span className="t-mono text-graphite">{step.n}</span>
+    <section id="process" className="px-6 pb-28 pt-28 md:px-10 md:pb-40 md:pt-40">
+      <Reveal className="mx-auto max-w-wide">
+        <h2 data-reveal className="t-display t-d2">
+          Enquiry to launch, in five steps.
+        </h2>
+        <ol className="mt-14 grid grid-cols-1 lg:mt-20 lg:grid-cols-5 lg:gap-8">
+          {STEPS.map((step, index) => (
+            <li
+              key={step.title}
+              data-reveal
+              className="grid grid-cols-[2.5rem_1fr] border-t border-hairline py-7 lg:block lg:pb-0"
+            >
+              <span className="t-mono text-graphite">{index + 1}</span>
+              <div className="lg:mt-16">
                 <h3 className="t-ui text-xl text-chalk">{step.title}</h3>
-                <p className="t-lead max-w-xl text-graphite">{step.body}</p>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </div>
+                <p className="mt-2 text-base leading-normal text-graphite">
+                  {step.body}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Reveal>
     </section>
   );
 }

@@ -2,25 +2,35 @@ import Link from "next/link";
 
 import { Wordmark } from "@/components/Wordmark";
 
+const LINKS = [
+  { href: "/#work", label: "Work" },
+  { href: "/#process", label: "Process" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/#faq", label: "FAQ" },
+];
+
 export function SiteHeader() {
   return (
-    <header className="relative z-40 border-b border-hairline">
-      <div className="mx-auto flex max-w-measure items-center justify-between px-6 py-5 md:px-10">
+    <header className="sticky top-0 z-40 bg-void">
+      <div className="mx-auto flex h-16 max-w-wide items-center justify-between px-6 md:px-10">
         <Link
           href="/"
-          className="text-lg leading-none md:text-xl"
-          aria-label="Raymond Developers — home"
+          className="text-base leading-none md:text-lg"
+          aria-label="Raymond Developers, home"
         >
           <Wordmark />
         </Link>
-        <nav className="flex items-center gap-6" aria-label="Primary">
-          <Link href="/#02" className="t-mono hidden text-graphite transition-colors hover:text-signal sm:inline">
-            What we build
-          </Link>
-          <Link
-            href="/#05"
-            className="t-mono border border-hairline px-4 py-2 text-chalk transition-colors hover:border-signal hover:text-signal"
-          >
+        <nav className="flex items-center gap-8" aria-label="Primary">
+          {LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="t-mono hidden text-graphite transition-colors duration-150 hover:text-signal md:inline"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Link href="/#pricing" className="btn btn-solid !min-h-10 !px-4 !text-sm">
             Start a project
           </Link>
         </nav>

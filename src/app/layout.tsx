@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 
-import { archivo, newsreader, plexMono } from "@/lib/fonts";
+import { inter } from "@/lib/fonts";
 import { publicEnv } from "@/lib/env";
-import { Preloader } from "@/components/Preloader";
 
 import "./globals.css";
 
-const title = "Raymond Developers — Web Design & Software Studio in Birmingham";
+const title = "Raymond Developers | Web Design & Software Studio in Birmingham";
 const description =
   "Raymond Developers is a Birmingham-based studio designing and building websites and bespoke software for clients across the UK: custom web applications, internal tools, dashboards, booking and workflow systems.";
 
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(publicEnv.siteUrl),
   title: {
     default: title,
-    template: "%s — Raymond Developers",
+    template: "%s | Raymond Developers",
   },
   description,
   applicationName: "Raymond Developers",
@@ -82,10 +81,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html
-      lang="en-GB"
-      className={`${archivo.variable} ${newsreader.variable} ${plexMono.variable}`}
-    >
+    <html lang="en-GB" className={inter.variable}>
       <body data-csp-nonce={nonce}>
         <script
           type="application/ld+json"
@@ -93,7 +89,6 @@ export default async function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <Preloader />
         {children}
       </body>
     </html>

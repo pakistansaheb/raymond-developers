@@ -1,86 +1,78 @@
 import Image from "next/image";
 
-import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 
 const PROJECTS = [
   {
-    code: "03.1",
     name: "Raymond Logistics",
     summary: "Service pages and a quote flow built to convert.",
     href: "https://raymondlogistics.co.uk",
     image: "/images/work/raymond-logistics.png",
+    span: "md:col-span-7",
   },
   {
-    code: "03.2",
     name: "HP Cutz",
     summary: "Booking flow that turns a browse into an appointment.",
     href: "https://hpcutz.com",
     image: "/images/work/hp-cutz.png",
+    span: "md:col-span-5 md:mt-40",
   },
   {
-    code: "03.3",
     name: "CM Courier Group",
     summary: "An instant quote tool built into the marketing site.",
     href: "https://cm-courier-group.vercel.app",
     image: "/images/work/cm-courier-group.png",
+    span: "md:col-span-5",
   },
   {
-    code: "03.4",
     name: "Ayrah Logistics",
-    summary: "Refrigerated transport site with a live quote tool that emails every enquiry.",
+    summary:
+      "Refrigerated transport site with a live quote tool that emails every enquiry.",
     href: "https://ayrahlogistics.com",
     image: "/images/work/ayrah-logistics.png",
+    span: "md:col-span-7 md:mt-40",
   },
-] as const;
+];
 
 export function Work() {
   return (
-    <section id="03" className="bleed-rule px-6 py-24 md:px-10 md:py-32 xl:pl-28">
-      <div className="mx-auto max-w-measure">
-        <Reveal className="flex flex-col gap-10">
-          <div data-reveal>
-            <Eyebrow label="WORK" code="03" descriptor="SHIPPED" />
-            <h2 className="t-display t-d2 mt-6 max-w-2xl">Work that ships.</h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8 xl:grid-cols-4">
-            {PROJECTS.map((project) => (
+    <section id="work" className="px-6 pb-28 pt-28 md:px-10 md:pb-40 md:pt-40">
+      <div className="mx-auto max-w-wide">
+        <Reveal>
+          <h2 data-reveal className="t-display t-d2">
+            Work that ships.
+          </h2>
+        </Reveal>
+        <div className="mt-14 grid grid-cols-1 gap-x-10 gap-y-16 md:mt-20 md:grid-cols-12 md:gap-y-24">
+          {PROJECTS.map((project) => (
+            <Reveal key={project.name} className={project.span}>
               <a
-                key={project.code}
+                data-reveal
                 href={project.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-reveal
-                className="group flex min-w-0 flex-col gap-4"
+                className="group block"
               >
-                <div className="relative aspect-[16/10] w-full min-w-0 overflow-hidden border border-hairline">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-hairline bg-surface">
                   <Image
                     src={project.image}
                     alt={`${project.name} website`}
                     fill
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className="object-cover object-top transition-transform duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-105"
+                    sizes="(min-width: 768px) 58vw, 100vw"
+                    className="object-cover object-top transition-transform duration-300 ease-out group-hover:scale-[1.015]"
                   />
                 </div>
-                <div>
-                  <span className="t-mono text-graphite">{project.code}</span>
-                  <h3 className="row-title t-ui mt-1 text-xl text-chalk">
-                    {project.name}
-                  </h3>
-                  <p className="t-lead mt-1">{project.summary}</p>
-                  <span className="t-mono mt-3 inline-block text-chalk underline decoration-hairline decoration-2 underline-offset-4 group-hover:decoration-signal">
-                    {project.href.replace(/^https?:\/\//, "")} →
-                  </span>
-                </div>
+                <h3 className="t-ui mt-6 text-xl text-chalk md:text-2xl">
+                  {project.name}
+                </h3>
+                <p className="t-lead mt-2 max-w-lg">{project.summary}</p>
+                <span className="t-mono mt-4 inline-block text-chalk underline decoration-graphite underline-offset-4 group-hover:decoration-signal">
+                  {project.href.replace(/^https?:\/\//, "")} →
+                </span>
               </a>
-            ))}
-          </div>
-
-          <p data-reveal className="t-mono text-graphite">
-            03.5 — Next project in progress.
-          </p>
-        </Reveal>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
