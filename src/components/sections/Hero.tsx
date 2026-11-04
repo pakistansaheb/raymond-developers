@@ -5,13 +5,21 @@ import { HeroStage } from "@/components/sections/HeroStage";
 export function Hero() {
   return (
     <>
-      <section className="px-6 pb-14 pt-20 md:px-10 md:pb-6 md:pt-28">
-        <div className="mx-auto flex max-w-wide flex-col gap-10 md:gap-12">
+      <section className="px-6 pb-12 pt-14 md:px-10 md:pb-6 md:pt-28">
+        <div className="mx-auto flex max-w-wide flex-col gap-8 md:gap-12">
           <h1 className="t-display t-d1">
-            <span className="block">Websites that win work.</span>
-            <span className="block text-graphite">Software that runs it.</span>
+            <span className="rise block">Websites that win work.</span>
+            <span
+              className="rise block text-graphite"
+              style={{ animationDelay: "90ms" }}
+            >
+              Software that runs it.
+            </span>
           </h1>
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div
+            className="rise flex flex-col gap-7 md:flex-row md:items-end md:justify-between"
+            style={{ animationDelay: "180ms" }}
+          >
             <p className="t-lead max-w-xl">
               A Birmingham studio designing and building for businesses across
               the UK. Fixed scope, fixed price, and the code is yours.

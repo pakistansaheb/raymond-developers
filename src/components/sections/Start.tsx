@@ -22,12 +22,12 @@ const OFFERS = [
 
 export function Start() {
   return (
-    <section id="pricing" className="px-6 pb-28 pt-28 md:px-10 md:pb-40 md:pt-40">
+    <section id="pricing" className="px-6 pb-20 pt-20 md:px-10 md:pb-40 md:pt-40">
       <Reveal className="mx-auto max-w-wide">
         <h2 data-reveal className="t-display t-d2">
           Two ways to start a project.
         </h2>
-        <ul className="mt-14 grid grid-cols-1 gap-4 md:mt-20 md:grid-cols-2">
+        <ul className="mt-10 grid grid-cols-1 gap-4 md:mt-20 md:grid-cols-2">
           {OFFERS.map((offer) => (
             <li
               key={offer.name}

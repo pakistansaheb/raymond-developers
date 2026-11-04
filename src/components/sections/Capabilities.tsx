@@ -9,7 +9,7 @@ const BUILDS = [
 
 export function Capabilities() {
   return (
-    <section id="services" className="px-6 pb-28 pt-32 md:px-10 md:pb-40 md:pt-48">
+    <section id="services" className="px-6 pb-20 pt-20 md:px-10 md:pb-40 md:pt-48">
       <Reveal className="mx-auto grid max-w-wide gap-14 lg:grid-cols-2 lg:gap-20">
         <h2 data-reveal className="t-display t-d2 max-w-xl">
           Built around how your business actually runs, not squeezed into a

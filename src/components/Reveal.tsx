@@ -15,24 +15,25 @@ export function Reveal({
     const node = ref.current;
     if (!node) return;
 
-    const items = Array.from(
-      node.querySelectorAll<HTMLElement>("[data-reveal]"),
-    );
-    items.forEach((item, index) => {
-      item.style.setProperty("--reveal-index", String(index));
-    });
-
+    // Observed one by one: on a tall phone layout a section-level trigger
+    // would finish animating items long before they reach the screen.
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          for (const item of items) item.classList.add("is-revealed");
-          observer.disconnect();
-        }
+        entries
+          .filter((entry) => entry.isIntersecting)
+          .forEach((entry, index) => {
+            const item = entry.target as HTMLElement;
+            item.style.setProperty("--reveal-index", String(index));
+            item.classList.add("is-revealed");
+            observer.unobserve(item);
+          });
       },
-      { rootMargin: "0px 0px -10% 0px" },
+      { rootMargin: "0px 0px -8% 0px" },
     );
 
-    observer.observe(node);
+    node
+      .querySelectorAll<HTMLElement>("[data-reveal]")
+      .forEach((item) => observer.observe(item));
     return () => observer.disconnect();
   }, []);
 

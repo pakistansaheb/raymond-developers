@@ -135,7 +135,7 @@ input,
     transform 0.12s ease-out;
 }
 .btn:active {
-  transform: translateY(1px);
+  transform: scale(0.97);
 }
 .btn-solid {
   background: var(--color-signal);
@@ -192,43 +192,131 @@ input,
   transform: none;
 }
 
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+details[open] > p {
+  animation: rise 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
 /* Hero stage: real project screenshots on separate planes, driven by --p. */
 .stage {
   --p: 0;
   position: relative;
+  height: 190svh;
+  pointer-events: none;
+}
+.stage-sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100svh;
+  overflow: hidden;
+  padding-top: 4.75rem;
+  pointer-events: none;
 }
 .stage-plate {
   position: relative;
-  height: 72vw;
+  flex: none;
+  width: min(88vw, calc((100svh - 9.5rem) * 0.7));
+  aspect-ratio: 7 / 10;
 }
 .stage-frame {
   position: absolute;
-  aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: 0.75rem;
   border: 1px solid var(--color-hairline);
   background: var(--color-surface);
 }
 .stage-main {
-  left: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 2;
-  width: 86%;
   box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.9);
-  transform: translateY(calc(var(--p) * -12px));
+  transform: scale(calc(0.8 + 0.2 * var(--p)));
 }
 .stage-back {
-  top: 0;
-  right: 0;
+  inset: 0;
   z-index: 1;
-  width: 62%;
-  transform: translateY(calc(var(--p) * -48px));
+  opacity: calc(1 - var(--p) * 1.4);
 }
 .stage-back--left {
-  display: none;
+  transform: translateX(calc(-34% - var(--p) * 70vw)) scale(0.68) rotate(-3deg);
+}
+.stage-back--right {
+  transform: translateX(calc(34% + var(--p) * 70vw)) scale(0.68) rotate(3deg);
 }
 .stage-caption {
-  margin-top: 1.5rem;
+  width: min(88vw, calc((100svh - 9.5rem) * 0.7));
+  margin-top: 1rem;
+  opacity: calc((var(--p) - 0.75) * 4);
+  pointer-events: auto;
+}
+
+/* Project shots: portrait on phones, stacking over each other as you scroll. */
+.work-card {
+  position: sticky;
+  top: 4.5rem;
+  padding-bottom: 2.5rem;
+  background: var(--color-void);
+}
+.work-card-inner {
+  --cover: 0;
+  transform-origin: top center;
+  transform: scale(calc(1 - var(--cover) * 0.07));
+  opacity: calc(1 - var(--cover) * 0.6);
+}
+.work-shot {
+  aspect-ratio: 7 / 10;
+  max-height: calc(100svh - 17.5rem);
+  width: 100%;
+}
+.work-card a:active .work-shot {
+  transform: scale(0.985);
+}
+
+@media (max-width: 767px) {
+  /* Pulls the centred card up so it peeks in under the hero buttons. */
+  .stage {
+    margin-top: -11rem;
+  }
+  .t-d1 {
+    font-size: 12.5vw;
+    line-height: 0.92;
+  }
+  .t-d2 {
+    font-size: 9.5vw;
+  }
+  .t-d3 {
+    font-size: 7vw;
+  }
+  .t-lead {
+    font-size: 1.1875rem;
+  }
+  .t-mono,
+  .btn {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+  .btn {
+    min-height: 3.25rem;
+    padding: 0 1.25rem;
+  }
+  [data-reveal] {
+    transform: translateY(24px);
+  }
 }
 
 @media (min-width: 768px) {
@@ -236,35 +324,24 @@ input,
     height: 230svh;
   }
   .stage-sticky {
-    position: sticky;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100svh;
-    overflow: hidden;
+    justify-content: flex-start;
     padding-top: 5.5rem;
   }
   .stage-plate {
-    flex: none;
     width: min(92vw, calc((100svh - 10rem) * 1.6));
-    height: auto;
     aspect-ratio: 16 / 10;
   }
   .stage-main {
-    inset: 0;
-    width: 100%;
     transform-origin: top center;
     transform: scale(calc(0.66 + 0.34 * var(--p)));
   }
   .stage-back {
-    top: 9%;
+    inset: 9% auto auto auto;
     width: 50%;
+    aspect-ratio: 16 / 10;
     opacity: calc(1 - var(--p));
   }
   .stage-back--left {
-    display: block;
-    right: auto;
     left: -3%;
     transform: translateX(calc(var(--p) * -60vw));
   }
@@ -275,7 +352,19 @@ input,
   .stage-caption {
     width: min(92vw, calc((100svh - 10rem) * 1.6));
     margin-top: 1.25rem;
-    opacity: calc((var(--p) - 0.75) * 4);
+  }
+  .work-card {
+    position: static;
+    padding-bottom: 0;
+    background: none;
+  }
+  .work-card-inner {
+    transform: none;
+    opacity: 1;
+  }
+  .work-shot {
+    aspect-ratio: 16 / 10;
+    max-height: none;
   }
 }
 
@@ -290,6 +379,7 @@ input,
   }
   .stage {
     height: auto;
+    margin-top: 0;
   }
   .stage-sticky {
     position: static;
@@ -297,16 +387,15 @@ input,
     padding-bottom: 2rem;
   }
   .stage-main,
-  .stage-back,
   .stage-back--left,
   .stage-back--right {
     transform: none;
   }
-  .stage-main {
-    transform: none;
-  }
   .stage-caption {
     opacity: 1;
+  }
+  .work-card {
+    position: static;
   }
   *,
   *::before,

@@ -25,12 +25,12 @@ const STEPS = [
 
 export function Process() {
   return (
-    <section id="process" className="px-6 pb-28 pt-28 md:px-10 md:pb-40 md:pt-40">
+    <section id="process" className="px-6 pb-20 pt-20 md:px-10 md:pb-40 md:pt-40">
       <Reveal className="mx-auto max-w-wide">
         <h2 data-reveal className="t-display t-d2">
           Enquiry to launch, in five steps.
         </h2>
-        <ol className="mt-14 grid grid-cols-1 lg:mt-20 lg:grid-cols-5 lg:gap-8">
+        <ol className="mt-10 grid grid-cols-1 lg:mt-20 lg:grid-cols-5 lg:gap-8">
           {STEPS.map((step, index) => (
             <li
               key={step.title}

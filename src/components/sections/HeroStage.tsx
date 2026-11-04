@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
+
+import { ProjectShot } from "@/components/ProjectShot";
 
 export function HeroStage() {
   const stageRef = useRef<HTMLElement>(null);
@@ -14,17 +15,13 @@ export function HeroStage() {
       return;
     }
 
-    const pinned = window.matchMedia("(min-width: 768px)");
     let raf = 0;
 
     const update = () => {
       raf = 0;
       const rect = stage.getBoundingClientRect();
-      const vh = window.innerHeight;
       // The last fifth of the pinned distance holds the settled frame.
-      const raw = pinned.matches
-        ? -rect.top / ((rect.height - vh) * 0.8)
-        : (vh - rect.top) / (vh + rect.height);
+      const raw = -rect.top / ((rect.height - window.innerHeight) * 0.8);
       stage.style.setProperty("--p", String(Math.min(Math.max(raw, 0), 1)));
     };
     const schedule = () => {
@@ -42,35 +39,20 @@ export function HeroStage() {
   }, []);
 
   return (
-    <section ref={stageRef} className="stage px-6 md:px-0" aria-label="Featured work">
+    <section ref={stageRef} className="stage" aria-label="Featured work">
       <div className="stage-sticky">
         <div className="stage-plate">
           <div className="stage-frame stage-back stage-back--left">
-            <Image
-              src="/images/work/hp-cutz.png"
-              alt=""
-              fill
-              sizes="50vw"
-              className="object-cover object-top"
-            />
+            <ProjectShot name="hp-cutz" alt="" />
           </div>
           <div className="stage-frame stage-back stage-back--right">
-            <Image
-              src="/images/work/ayrah-logistics.png"
-              alt=""
-              fill
-              sizes="(min-width: 768px) 50vw, 62vw"
-              className="object-cover object-top"
-            />
+            <ProjectShot name="ayrah-logistics" alt="" />
           </div>
           <div className="stage-frame stage-main">
-            <Image
-              src="/images/work/raymond-logistics.png"
+            <ProjectShot
+              name="raymond-logistics"
               alt="Raymond Logistics website homepage"
-              fill
               priority
-              sizes="(min-width: 768px) 92vw, 86vw"
-              className="object-cover object-top"
             />
           </div>
         </div>
@@ -81,7 +63,7 @@ export function HeroStage() {
           className="stage-caption flex items-baseline justify-between gap-6"
         >
           <span className="t-ui text-chalk">Raymond Logistics</span>
-          <span className="t-mono text-graphite">raymondlogistics.co.uk →</span>
+          <span className="t-mono text-graphite">See the site →</span>
         </a>
       </div>
     </section>

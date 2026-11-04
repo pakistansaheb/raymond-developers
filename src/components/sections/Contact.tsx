@@ -2,7 +2,7 @@ import { Reveal } from "@/components/Reveal";
 
 export function Contact() {
   return (
-    <section id="contact" className="ground-light px-6 py-32 md:px-10 md:py-48">
+    <section id="contact" className="ground-light px-6 py-24 md:px-10 md:py-48">
       <Reveal className="mx-auto flex max-w-wide flex-col gap-10">
         <h2 data-reveal className="t-display t-d1 max-w-5xl">
           Tell us what you&apos;re trying to build.

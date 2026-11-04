@@ -33,7 +33,7 @@ const ITEMS = [
 
 export function Faq() {
   return (
-    <section id="faq" className="px-6 pb-28 pt-28 md:px-10 md:pb-40 md:pt-40">
+    <section id="faq" className="px-6 pb-20 pt-20 md:px-10 md:pb-40 md:pt-40">
       <Reveal className="mx-auto grid max-w-wide gap-12 lg:grid-cols-[2fr_3fr] lg:gap-20">
         <h2 data-reveal className="t-display t-d2 self-start lg:sticky lg:top-28">
           Questions, answered plainly.
