@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 
-import { inter } from "@/lib/fonts";
+import { archivo, newsreader, plexMono } from "@/lib/fonts";
 import { publicEnv } from "@/lib/env";
 
 import "./globals.css";
@@ -81,7 +81,10 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en-GB" className={inter.variable}>
+    <html
+      lang="en-GB"
+      className={`${archivo.variable} ${newsreader.variable} ${plexMono.variable}`}
+    >
       <body data-csp-nonce={nonce}>
         <script
           type="application/ld+json"

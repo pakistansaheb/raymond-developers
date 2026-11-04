@@ -8,9 +8,9 @@
   --color-hairline: #242423;
   --color-signal: #ffffff;
 
-  --font-display: var(--font-inter), system-ui, sans-serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-display: var(--font-archivo), "Arial Narrow", system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
 
   --spacing-measure: 75rem;
   --spacing-wide: 90rem;
@@ -29,7 +29,7 @@ html {
 body {
   background: var(--color-void);
   color: var(--color-chalk);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: 1.0625rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -70,42 +70,46 @@ input,
 
 .t-display {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.015em;
   color: var(--color-chalk);
   text-wrap: balance;
 }
 
 .t-d1 {
-  font-size: clamp(3.25rem, 7vw, 8rem);
-  line-height: 0.95;
+  font-size: clamp(2.3rem, 6.2vw, 6rem);
+  line-height: 0.9;
 }
 .t-d2 {
   font-size: clamp(2.25rem, 4.5vw, 3.75rem);
 }
 .t-d3 {
   font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  line-height: 1;
 }
 
 .t-ui {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-stretch: 100%;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
-/* Small interface label, also used across the admin screens. */
 .t-mono {
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   line-height: 1.4;
 }
 
 .t-lead {
+  font-family: var(--font-serif);
   font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
   line-height: 1.5;
   color: var(--color-graphite);
@@ -119,8 +123,11 @@ input,
   min-height: 3rem;
   padding: 0 1.5rem;
   border-radius: 999px;
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   white-space: nowrap;
   transition:
     opacity 0.15s ease-out,
@@ -149,9 +156,11 @@ input,
 
 .legal-content h2 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  font-stretch: 68%;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.015em;
   color: var(--color-chalk);
   text-wrap: balance;
   font-size: clamp(1.5rem, 2.4vw, 2.25rem);

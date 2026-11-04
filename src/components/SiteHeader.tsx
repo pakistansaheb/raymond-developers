@@ -30,7 +30,7 @@ export function SiteHeader() {
               {link.label}
             </Link>
           ))}
-          <Link href="/#pricing" className="btn btn-solid !min-h-10 !px-4 !text-sm">
+          <Link href="/#pricing" className="btn btn-solid !min-h-10 !px-4">
             Start a project
           </Link>
         </nav>
