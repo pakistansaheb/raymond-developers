@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 
 import { archivo, newsreader, plexMono } from "@/lib/fonts";
 import { publicEnv } from "@/lib/env";
+import { CookieConsent } from "@/components/CookieConsent";
+import { Preloader } from "@/components/Preloader";
 
 import "./globals.css";
 
@@ -92,7 +94,9 @@ export default async function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <Preloader />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

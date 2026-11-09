@@ -6,22 +6,24 @@ export const metadata: Metadata = { title: "Privacy" };
 
 export default function PrivacyPage() {
   return (
-    <LegalShell eyebrow="LEGAL / PRIVACY" title="Privacy" updated="7 August 2026">
+    <LegalShell eyebrow="LEGAL / PRIVACY" title="Privacy" updated="9 November 2026">
       <p>
         This page explains what Raymond Developers collects when you use this
-        site, and why there is no cookie banner.
+        site.
       </p>
 
-      <h2>No cookies</h2>
+      <h2>Cookies</h2>
       <p>
-        There is no login and no account area on this site, so there is
-        nothing for a cookie to remember. This site sets no cookies at all —
-        not for tracking, not for preferences, not for anything else.
+        This site sets no tracking, analytics or advertising cookies. The only
+        cookie it uses is a sign-in cookie for the private admin area, which
+        visitors never reach.
       </p>
       <p>
-        UK and EU cookie law requires a consent banner for cookies that track
-        or profile visitors. With no cookies of any kind in use, there is
-        nothing to get consent for, so there is no banner.
+        On your first visit a notice asks for your cookie preference. Your
+        answer is saved in your browser&rsquo;s local storage so the notice
+        doesn&rsquo;t keep coming back, and it is never sent to us. You can
+        change it at any time with the &ldquo;Cookie settings&rdquo; link at
+        the bottom of every page.
       </p>
 
       <h2>No analytics, no trackers</h2>

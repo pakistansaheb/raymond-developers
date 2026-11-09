@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { CookieSettingsButton } from "@/components/CookieConsent";
 import { Wordmark } from "@/components/Wordmark";
 
 export function SiteFooter() {
@@ -27,6 +28,7 @@ export function SiteFooter() {
           >
             Terms
           </Link>
+          <CookieSettingsButton className="t-mono inline-block py-3 text-graphite transition-colors duration-150 hover:text-signal" />
           <a
             href="mailto:abdulrahmanammad7@gmail.com"
             className="t-mono inline-block py-3 text-graphite transition-colors duration-150 hover:text-signal"
