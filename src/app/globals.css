@@ -212,8 +212,9 @@ details[open] > p {
 /* Hero stage: real project screenshots on separate planes, driven by --p. */
 .stage {
   --p: 0;
+  --count: 5;
   position: relative;
-  height: 190svh;
+  height: calc(130svh + var(--count) * 55svh);
   pointer-events: none;
 }
 .stage-sticky {
@@ -241,11 +242,43 @@ details[open] > p {
   border: 1px solid var(--color-hairline);
   background: var(--color-surface);
 }
-.stage-main {
+.stage-deck {
+  position: absolute;
   inset: 0;
   z-index: 2;
-  box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.9);
   transform: scale(calc(0.8 + 0.2 * var(--p)));
+}
+.stage-card {
+  --enter: 0;
+  --cover: 0;
+  inset: 0;
+  transform-origin: top center;
+  box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.9);
+  opacity: calc(var(--enter) * 2.5);
+  transform: translateY(calc((1 - var(--enter)) * 112%))
+    scale(calc(1 - var(--cover) * 0.06));
+  filter: brightness(calc(1 - var(--cover) * 0.55));
+  will-change: transform;
+}
+.stage-card:first-child {
+  --enter: 1;
+}
+.stage-progress {
+  height: 1px;
+  background: var(--color-hairline);
+  margin-bottom: 0.875rem;
+  overflow: hidden;
+}
+.stage-progress span {
+  display: block;
+  height: 100%;
+  background: var(--color-chalk);
+  transform-origin: left;
+  transform: scaleX(var(--q, 0));
+}
+.stage-summary {
+  font-size: 1rem;
+  min-width: 0;
 }
 .stage-back {
   inset: 0;
@@ -321,7 +354,7 @@ details[open] > p {
 
 @media (min-width: 768px) {
   .stage {
-    height: 230svh;
+    height: calc(150svh + var(--count) * 62svh);
   }
   .stage-sticky {
     justify-content: flex-start;
@@ -331,7 +364,7 @@ details[open] > p {
     width: min(92vw, calc((100svh - 10rem) * 1.6));
     aspect-ratio: 16 / 10;
   }
-  .stage-main {
+  .stage-deck {
     transform-origin: top center;
     transform: scale(calc(0.66 + 0.34 * var(--p)));
   }
@@ -386,7 +419,7 @@ details[open] > p {
     height: auto;
     padding-bottom: 2rem;
   }
-  .stage-main,
+  .stage-deck,
   .stage-back--left,
   .stage-back--right {
     transform: none;
@@ -418,4 +451,17 @@ details > summary .fq-sign {
 }
 details[open] > summary .fq-sign {
   transform: rotate(45deg);
+}
+
+/* Caption stays above the card sliding in underneath it. */
+.stage-caption {
+  position: relative;
+  z-index: 20;
+  padding-top: 0.25rem;
+  background: var(--color-void);
+}
+/* Cards slide up inside the frame rather than appearing below it. */
+.stage-deck {
+  overflow: hidden;
+  border-radius: 0.75rem;
 }

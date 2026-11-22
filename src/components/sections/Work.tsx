@@ -1,38 +1,22 @@
 import { ProjectShot } from "@/components/ProjectShot";
 import { Reveal } from "@/components/Reveal";
 import { WorkStack } from "@/components/sections/WorkStack";
+import { PROJECTS as ALL } from "@/lib/projects";
 
-const PROJECTS = [
-  {
-    name: "Raymond Logistics",
-    slug: "raymond-logistics",
-    summary: "Service pages and a quote flow built to convert.",
-    href: "https://raymondlogistics.co.uk",
-    span: "md:col-span-7",
-  },
-  {
-    name: "HP Cutz",
-    slug: "hp-cutz",
-    summary: "Booking flow that turns a browse into an appointment.",
-    href: "https://hpcutz.com",
-    span: "md:col-span-5 md:mt-40",
-  },
-  {
-    name: "CM Courier Group",
-    slug: "cm-courier-group",
-    summary: "An instant quote tool built into the marketing site.",
-    href: "https://cm-courier-group.vercel.app",
-    span: "md:col-span-5",
-  },
-  {
-    name: "Ayrah Logistics",
-    slug: "ayrah-logistics",
-    summary:
-      "Refrigerated transport site with a live quote tool that emails every enquiry.",
-    href: "https://ayrahlogistics.com",
-    span: "md:col-span-7 md:mt-40",
-  },
+// Staggered 12-column grid: wide, narrow-dropped, narrow, wide-dropped, then repeat.
+const SPANS = [
+  "md:col-span-7",
+  "md:col-span-5 md:mt-40",
+  "md:col-span-5",
+  "md:col-span-7 md:mt-40",
 ];
+const PROJECTS = ALL.map((p, i) => ({
+  ...p,
+  span:
+    i === ALL.length - 1 && i % 2 === 0
+      ? "md:col-span-8 md:col-start-3"
+      : SPANS[i % SPANS.length],
+}));
 
 export function Work() {
   return (
