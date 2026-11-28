@@ -30,10 +30,10 @@ export function SiteFooter() {
           </Link>
           <CookieSettingsButton className="t-mono inline-block py-3 text-graphite transition-colors duration-150 hover:text-signal" />
           <a
-            href="mailto:abdulrahmanammad7@gmail.com"
+            href="mailto:info@raymonddevelopers.online"
             className="t-mono inline-block py-3 text-graphite transition-colors duration-150 hover:text-signal"
           >
-            abdulrahmanammad7@gmail.com
+            info@raymonddevelopers.online
           </a>
         </nav>
       </div>

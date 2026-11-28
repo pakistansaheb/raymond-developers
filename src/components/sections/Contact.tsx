@@ -13,10 +13,10 @@ export function Contact() {
         </p>
         <a
           data-reveal
-          href="mailto:abdulrahmanammad7@gmail.com"
+          href="mailto:info@raymonddevelopers.online"
           className="t-display t-d3 inline-block self-start break-all py-2 underline decoration-graphite decoration-1 underline-offset-8 transition-colors duration-150 hover:decoration-signal"
         >
-          abdulrahmanammad7@gmail.com
+          info@raymonddevelopers.online
         </a>
       </Reveal>
     </section>

@@ -45,8 +45,8 @@ export default function PrivacyPage() {
       <h2>Email</h2>
       <p>
         Getting in touch by email (
-        <a href="mailto:abdulrahmanammad7@gmail.com">
-          abdulrahmanammad7@gmail.com
+        <a href="mailto:info@raymonddevelopers.online">
+          info@raymonddevelopers.online
         </a>
         ) is handled like any other email — kept as long as needed to answer
         you and keep a record of the conversation.
@@ -62,8 +62,8 @@ export default function PrivacyPage() {
       <h2>Questions</h2>
       <p>
         Email{" "}
-        <a href="mailto:abdulrahmanammad7@gmail.com">
-          abdulrahmanammad7@gmail.com
+        <a href="mailto:info@raymonddevelopers.online">
+          info@raymonddevelopers.online
         </a>{" "}
         with anything about this policy or your data.
       </p>

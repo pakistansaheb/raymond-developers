@@ -72,7 +72,7 @@ export default async function RootLayout({
     "@type": "ProfessionalService",
     name: "Raymond Developers",
     url: publicEnv.siteUrl,
-    email: "abdulrahmanammad7@gmail.com",
+    email: "info@raymonddevelopers.online",
     description,
     areaServed: ["Birmingham", "West Midlands", "United Kingdom"],
     address: {
